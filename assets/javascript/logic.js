@@ -40,6 +40,7 @@ $(document).ready(function () {
         //array for user inputted budgetItems
         budgetItems: [],
         incomeSubmitted: false,
+    //budgetInfo object end
     };
 
     //function that allows user to add items to the budget based on category and dollar amount
@@ -48,7 +49,11 @@ $(document).ready(function () {
             category: cat,
             dollarAmount: dollars
         })
+        //TODO:
+        // If Cat.percentage = false add functionality to change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount, and remaining total spendingMoney
+        //Else change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
     };
+
     //** TESTING function functionality
     addBudgetItem(budgetInfo.categories.catFood.name, 100);
     addBudgetItem("Other", 500);
