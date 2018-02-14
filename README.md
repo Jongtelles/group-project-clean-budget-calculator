@@ -1,1 +1,1 @@
-# group-project1
+# Simple and Good-Lookin' Budget Tracker
