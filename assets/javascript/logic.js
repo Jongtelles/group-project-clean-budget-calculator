@@ -53,6 +53,31 @@ $(document).ready(function () {
     addBudgetItem(budgetInfo.categories.catFood.name, 100);
     addBudgetItem("Other", 500);
     console.log(budgetInfo.budgetItems[0], budgetInfo.budgetItems[1]);
+    
+    // records user input as category 
+    var recordCategory = function(){
+        var userCategory = $("#userInput").val();
+        console.log("category: " + userCategory);
+        localStorage.setItem("category", userCategory);
+    }
 
+    // records user input as income
+    var recordIncome = function() {
+        budgetInfo.spendingMoney = $("#userInput").val();
+        console.log("income: " + budgetInfo.spendingMoney);
+        localStorage.setItem("income", budgetInfo.spendingMoney);
+        budgetInfo.incomeSubmitted = true;
+    }
+
+    // calls recordIncome or recordCategory based on whether or not the income has been recorded
+    $("#submit").on("click", function(event) {
+    if(budgetInfo.incomeSubmitted == false) {
+        recordIncome();
+        }
+    else{
+        recordCategory()
+    }
+    })
     // END OF PAGELOAD FUNCTION
 });
+
