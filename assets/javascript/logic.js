@@ -83,12 +83,6 @@ $(document).ready(function () {
         var isTrackedBool = $(this).prop("checked");
         checkboxChecker(whichCheckboxAreYou, isTrackedBool);
     })
-    // an if function that will define the category used in stage 3
-    var defineCat =function(){
-        if($("#radioFood").prop("checked")==true){
-            stageThreeCat = "catFood"
-        }
-    }
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
@@ -104,13 +98,31 @@ $(document).ready(function () {
             $("#userInputDollars").toggle();
             $("#radioButtons").toggle();            
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
-            // temporary testing solutions that need to be adjusted to fit the category picker solution (which is also subject to change)
-            var stageThreeCost = $("#userInput").val();
+            // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
+            if($("#radioFood").prop("checked")==true){
+                var stageThreeCat = "Food"
+            }
+            else if($("#radioClothing").prop("checked")==true){
+                var stageThreeCat = "Clothing"
+            }
+            else if($("#radioEntertainment").prop("checked")==true){
+                var stageThreeCat = "Entertainment"
+            }
+            else if($("#radioSavings").prop("checked")==true){
+                var stageThreeCat = "Savings"
+            }
+            else if($("#radioTransportation").prop("checked")==true){
+                var stageThreeCat = "Transportation"
+            }
+            else if($("#radioOther").prop("checked")==true){
+                var stageThreeCat = "Other"
+            };
+            var stageThreeCost = $("#userInputDollars").val();
+            // defineCat();
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
-            console.log(budgetInfo.budgetItems);
+            console.log("food? "+ $("radioFood").prop("checked"));
         }
-        console.log(budgetInfo.categories)
     });
 
     //TODO:
