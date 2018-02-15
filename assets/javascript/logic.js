@@ -8,6 +8,7 @@ $(document).ready(function () {
         //array for user inputted budgetItems
         budgetItems: [],
         incomeSubmitted: false,
+        categoriesSelected: false,
         //user will determine which categories to track, and % of spendingMoney allocated
         categories: {
             catFood: {
@@ -61,45 +62,70 @@ $(document).ready(function () {
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
     };
 
+    var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
+        budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
+    };
 
     // this is my solution to the category picker. In the final version it will involve replacing the input section with a dropdown or scroll menu, like the one in the password generator, that includes our bategories.
     //it will likely make the funciton i wrote to take user input for categoires unecessary
-    $(".dropdown-item").on("click", function(event){
-        if($(this).attr("id") === "food"){
+    $(".dropdown-item").on("click", function (event) {
+        if ($(this).attr("id") === "food") {
             // $("#food").addClass("is-active");
             budgetInfo.categories.catFood.isTracked = true;
             console.log("catFood is being tracked " + budgetInfo.categories.catFood.isTracked);
         };
-        if($(this).attr("id") === "clothing"){
+        if ($(this).attr("id") === "clothing") {
             budgetInfo.categories.catClothing.isTracked = true;
             console.log("catClothing is being tracked " + budgetInfo.categories.catClothing.isTracked);
         };
-        if($(this).attr("id") === "entertainment"){
+        if ($(this).attr("id") === "entertainment") {
             budgetInfo.categories.catEntertainment.isTracked = true;
             console.log("catEntertainment is being tracked " + budgetInfo.categories.catEntertainment.isTracked);
         }
+
         if($(this).attr("id") === "savings"){
             budgetInfo.categories.catSavings.isTracked = true;
             console.log("catSavings is being tracked " + budgetInfo.categories.catSavings.isTracked);
         }
-        if($(this).attr("id") === "transportation"){
+        if ($(this).attr("id") === "transportation") {
             budgetInfo.categories.catTransportation.isTracked = true;
             console.log("catTransportation is being tracked " + budgetInfo.categories.catTransportation.isTracked);
         }
-        if($(this).attr("id") === "other"){
+        if ($(this).attr("id") === "other") {
             budgetInfo.categories.catOther.isTracked = true;
             console.log("catOther is being tracked " + budgetInfo.categories.catOther.isTracked);
         }
     });
 
+    $(".checkbox").change(function () {
+        var whichCheckboxAreYou = $(this).val();
+        var isTrackedBool = $(this).prop("checked");
+        checkboxChecker(whichCheckboxAreYou, isTrackedBool);
+    })
+
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
-        var tempCategory = $("#userInput").val();
-        var tempDollars = $("#userInputDollars").val();
-        addBudgetItem(tempCategory, tempDollars);
-        outPutter(tempCategory, tempDollars);
-        console.log(budgetInfo.budgetItems);
+        if (budgetInfo.incomeSubmitted === false) {
+            budgetInfo.spendingMoney = $("#userInputDollars").val();
+            budgetInfo.incomeSubmitted = true;
+            $("#categoryCheckbox").toggle();
+            $("#userInputDollars").toggle();
+//this does nto call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker             
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
+            budgetInfo.categoriesSelected = true;
+            $("#categoryCheckbox").toggle();
+            $("#userInputDollars").toggle();
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
+// temporary testing solutions that need to be adjusted to fit the category picker solution (which is also subject to change)            
+            var tempCategory = $("#userInput").val();
+            var tempDollars = $("#userInputDollars").val();
+            addBudgetItem(tempCategory, tempDollars);
+            outPutter(tempCategory, tempDollars);
+            console.log(budgetInfo.budgetItems);
+        }
+        console.log(budgetInfo.categories)
     });
+
     //TODO:
     //If trackingPercents = false add functionality to change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount, and remaining total spendingMoney
     //Else change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney

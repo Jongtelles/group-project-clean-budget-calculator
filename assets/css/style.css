@@ -1,4 +1,17 @@
 /* testing link with background color */
-body{
+
+body {
     background-color: rgba(200, 128, 128, 1);
+}
+
+#userInput {
+    display: none;
+}
+
+#categoryCheckbox {
+    display: none;
+}
+
+.dropdown {
+    display: none;
 }
