@@ -16,15 +16,44 @@
     <div id="prompt">
         <h2>After fixed costs, how much do you have leftover to spend?</h2>
     </div>
-
     <input id="userInput">
     <button id="submit" type="submit">Submit</button>
 
+<!-- placeholder dropdown menu -->
+    <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+            <span>Hover me</span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+                <div class="dropdown-item" id="food">
+                    <p>Food</p>
+                </div>
+                <div class="dropdown-item" id="clothing">
+                    <p>Clothing</p>
+                </div>
+                <div class="dropdown-item" id="entertainment">
+                    <p>Entertainment</p>
+                </div>
+                <div class="dropdown-item" id="travel">
+                    <p>Travel</p>
+                </div>
+                <div class="dropdown-item" id="transportation">
+                    <p>Transportation</p>
+                </div>
+                <div class="dropdown-item" id="other">
+                    <p>Other</p>
+                </div>
+          </div>
+        </div>
+      </div>
     <div id="output"></div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous">
-    </script>
     <script src="./assets/javascript/logic.js">
     </script>
 </body>
