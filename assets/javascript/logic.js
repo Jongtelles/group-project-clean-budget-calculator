@@ -109,11 +109,13 @@ $(document).ready(function () {
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
+//this does nto call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker             
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
+// temporary testing solutions that need to be adjusted to fit the category picker solution (which is also subject to change)            
             var tempCategory = $("#userInput").val();
             var tempDollars = $("#userInputDollars").val();
             addBudgetItem(tempCategory, tempDollars);
