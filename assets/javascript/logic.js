@@ -83,6 +83,12 @@ $(document).ready(function () {
         var isTrackedBool = $(this).prop("checked");
         checkboxChecker(whichCheckboxAreYou, isTrackedBool);
     })
+    // an if function that will define the category used in stage 3
+    var defineCat =function(){
+        if($("#radioFood").prop("checked")==true){
+            stageThreeCat = "catFood"
+        }
+    }
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
@@ -96,12 +102,12 @@ $(document).ready(function () {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
+            $("#radioButtons").toggle();            
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
             // temporary testing solutions that need to be adjusted to fit the category picker solution (which is also subject to change)
-            var tempCategory = $("#userInput").val();
-            var tempDollars = $("#userInputDollars").val();
-            addBudgetItem(tempCategory, tempDollars);
-            outPutter(tempCategory, tempDollars);
+            var stageThreeCost = $("#userInput").val();
+            addBudgetItem(stageThreeCat, stageThreeCost);
+            outPutter(stageThreeCat, stageThreeCost);
             console.log(budgetInfo.budgetItems);
         }
         console.log(budgetInfo.categories)
