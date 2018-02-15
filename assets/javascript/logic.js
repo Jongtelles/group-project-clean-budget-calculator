@@ -54,11 +54,43 @@ $(document).ready(function () {
         });
         $("#prompt").html("<h2>Got it! Wanna add anything else?</h2>");
     };
+
     //function outputs basic user input to output field, not including percentage tracking
     var outPutter = function (appendCategory, appendCost) {
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
     };
+
+
+    // this is my solution to the category picker. In the final version it will involve replacing the input section with a dropdown or scroll menu, like the one in the password generator, that includes our bategories.
+    //it will likely make the funciton i wrote to take user input for categoires unecessary
+    $(".dropdown-item").on("click", function(event){
+        if($(this).attr("id") === "food"){
+            // $("#food").addClass("is-active");
+            budgetInfo.categories.catFood.isTracked = true;
+            console.log("catFood is being tracked " + budgetInfo.categories.catFood.isTracked);
+        };
+        if($(this).attr("id") === "clothing"){
+            budgetInfo.categories.catClothing.isTracked = true;
+            console.log("catClothing is being tracked " + budgetInfo.categories.catClothing.isTracked);
+        };
+        if($(this).attr("id") === "entertainment"){
+            budgetInfo.categories.catEntertainment.isTracked = true;
+            console.log("catEntertainment is being tracked " + budgetInfo.categories.catEntertainment.isTracked);
+        }
+        if($(this).attr("id") === "travel"){
+            budgetInfo.categories.catTravel.isTracked = true;
+            console.log("catTravel is being tracked " + budgetInfo.categories.catTravel.isTracked);
+        }
+        if($(this).attr("id") === "transportation"){
+            budgetInfo.categories.catTransportation.isTracked = true;
+            console.log("catTransportation is being tracked " + budgetInfo.categories.catTransportation.isTracked);
+        }
+        if($(this).attr("id") === "other"){
+            budgetInfo.categories.catOther.isTracked = true;
+            console.log("catOther is being tracked " + budgetInfo.categories.catOther.isTracked);
+        }
+    });
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
@@ -72,15 +104,7 @@ $(document).ready(function () {
     //If trackingPercents = false add functionality to change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount, and remaining total spendingMoney
     //Else change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
 
-    // function categoryPicker() {
-    //     //TODO:
-    //     // display to the user the list of categories and have them select which they want to track
-    //     //based on user selection of categories, set budgetInfo.categories.catX.isTracked = true
-    //     //ask user if they want to track categories, if yes set trackingPercents = true and ask for user input to select percentages of spendingMoney
-    //     //update budgetInfo.categories.catX.percentage to user input
-    // };
 
-    //** TESTING function functionality
 
 
     // records user input as category
@@ -106,5 +130,6 @@ $(document).ready(function () {
     //         recordCategory()
     //     }
     // })
+
     // END OF PAGELOAD FUNCTION
 });
