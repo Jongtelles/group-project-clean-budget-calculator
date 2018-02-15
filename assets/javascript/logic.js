@@ -82,9 +82,10 @@ $(document).ready(function () {
             budgetInfo.categories.catEntertainment.isTracked = true;
             console.log("catEntertainment is being tracked " + budgetInfo.categories.catEntertainment.isTracked);
         }
-        if ($(this).attr("id") === "travel") {
-            budgetInfo.categories.catTravel.isTracked = true;
-            console.log("catTravel is being tracked " + budgetInfo.categories.catTravel.isTracked);
+
+        if($(this).attr("id") === "savings"){
+            budgetInfo.categories.catSavings.isTracked = true;
+            console.log("catSavings is being tracked " + budgetInfo.categories.catSavings.isTracked);
         }
         if ($(this).attr("id") === "transportation") {
             budgetInfo.categories.catTransportation.isTracked = true;
