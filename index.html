@@ -8,7 +8,7 @@
     <title>Budget</title>
     <link rel=stylesheet type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
@@ -16,19 +16,45 @@
     <div id="prompt">
         <h2>After fixed costs, how much do you have leftover to spend?</h2>
     </div>
+    <fieldset id="categoryCheckbox">
+        <div>
+            <input class="checkbox" type="checkbox" id="catFood" name="category" value="catFood">
+            <label for="catFood">Food</label>
+        </div>
+        <div>
+            <input class="checkbox" type="checkbox" id="catClothing" name="category" value="catClothing">
+            <label for="catClothing">Clothing</label>
+        </div>
+        <div>
+            <input class="checkbox" type="checkbox" id="catEntertainment" name="category" value="catEntertainment">
+            <label for="catEntertainment">Entertainment</label>
+        </div>
+        <div>
+            <input class="checkbox" type="checkbox" id="catSavings" name="category" value="catSavings">
+            <label for="catSavings">Savings</label>
+        </div>
+        <div>
+            <input class="checkbox" type="checkbox" id="catTransportation" name="category" value="catTransportation">
+            <label for="catTransportation">Transportation</label>
+        </div>
+        <div>
+            <input class="checkbox" type="checkbox" id="catOther" name="category" value="catOther">
+            <label for="catOther">Other</label>
+        </div>
+    </fieldset>
     <input id="userInput">
     <input id="userInputDollars" type="number">
     <button id="submit" type="submit">Submit</button>
 
-<!-- placeholder dropdown menu -->
+    <!-- placeholder dropdown menu -->
     <div class="dropdown is-hoverable">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-            <span>Hover me</span>
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Hover me</span>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
         </div>
         <div class="dropdown-menu" id="dropdown-menu4" role="menu">
             <div class="dropdown-content">
@@ -50,9 +76,9 @@
                 <div class="dropdown-item" id="other">
                     <p>Other</p>
                 </div>
-          </div>
+            </div>
         </div>
-      </div>
+    </div>
     <div id="output"></div>
 
     <script src="./assets/javascript/logic.js">
