@@ -44,6 +44,8 @@ $(document).ready(function () {
         //budgetInfo object end
     };
 
+    budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1]
+
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
         budgetInfo.budgetItems.push({
