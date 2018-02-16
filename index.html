@@ -64,7 +64,37 @@
         </div>
       </div>
     </fieldset>
-    <input id="userInput">
+    <!-- raido button set to be hidden until stage 3 -->
+    <div id="radioButtons">
+        <input type="radio" class="radioB" id="radioFood"
+            name="category" value="catFood">
+        <label for="radioFood">Food</label>
+
+        <input type="radio" class="radioB" id="radioClothing"
+            name="category" value="catClothing">
+        <label for="radioClothing">Clothing</label>
+
+        <input type="radio" class="radioB" id="radioEntertainment"
+            name="category" value="catEntertainment">
+        <label for="radioEntertainment">Entertainment</label>
+
+        <input type="radio" class="radioB" id="radioSavings"
+            name="category" value="catSavings">
+        <label for="raidoSavings">Savings</label>
+
+        <input type="radio" class="radioB" id="radioTransportation"
+        name="category" value="catTransportation">
+        <label for="radioTransportation">Transportation</label>
+
+        <input type="radio" class="radioB" id="radioOther"
+        name="category" value="catOther">
+        <label for="radioOther">Other</label>
+    </div>
+    <div id="yesNoButtons" class="buttons">
+        <span id="yes" value="yes" class="button is-success">Yes</span>
+        <span id="no" value="no" class="button is-danger">No</span>
+    </div>
+    <button id="submit" type="submit">Submit</button>
 
     <!--reformat this userInput to fit Bulma  -->
     <div class="block">
@@ -87,46 +117,8 @@
       </div>
     </div>
     <!-- </div> -->
-
-
-
-
     <!-- <input id="userInputDollars" type="number"> -->
     <!-- <button id="submit" type="submit">Submit</button> -->
-
-    <!-- placeholder dropdown menu -->
-    <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                <span>Hover me</span>
-                <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-                <div class="dropdown-item" id="food">
-                    <p>Food</p>
-                </div>
-                <div class="dropdown-item" id="clothing">
-                    <p>Clothing</p>
-                </div>
-                <div class="dropdown-item" id="entertainment">
-                    <p>Entertainment</p>
-                </div>
-                <div class="dropdown-item" id="savings">
-                    <p>Savings</p>
-                </div>
-                <div class="dropdown-item" id="transportation">
-                    <p>Transportation</p>
-                </div>
-                <div class="dropdown-item" id="other">
-                    <p>Other</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="output"></div>
 
     <script src="./assets/javascript/logic.js">

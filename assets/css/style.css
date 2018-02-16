@@ -17,7 +17,11 @@ h1 {
     display: none;
 }
 
-.dropdown {
+#radioButtons{
+    display: none;
+}
+
+#yesNoButtons {
     display: none;
 }
 
