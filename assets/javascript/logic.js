@@ -83,33 +83,48 @@ $(document).ready(function () {
         var isTrackedBool = $(this).prop("checked");
         checkboxChecker(whichCheckboxAreYou, isTrackedBool);
     })
+    // sets value of trackingPercents based on button click and adjusts display of input elements
+    $("#yes").on("click", function () {
+        budgetInfo.trackingPercents = true;
+        $("#yesNoButtons").toggle();
+        $("#userInputDollars").toggle();
+    });
+    // sets value of trackingPercents based on button click and adjusts display of input elements
+    $("#no").on("click", function () {
+        budgetInfo.trackingPercents = false;
+        $("#yesNoButtons").toggle();
+        $("#userInputDollars").toggle();
+    });
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
         if (budgetInfo.incomeSubmitted === false) {
-            budgetInfo.spendingMoney = $("#userInputDollars").val();
+            //just in case, convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
+            budgetInfo.spendingMoney = parseInt($("#userInputDollars").val(), 10);
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
+            $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
             //this does not call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
-            $("#userInputDollars").toggle();
+            $("#yesNoButtons").toggle();
+            $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
-            // temporary testing solutions that need to be adjusted to fit the category picker solution (which is also subject to change)
+            // below line will be re-written based on category selector solution
             var tempCategory = $("#userInput").val();
             var tempDollars = $("#userInputDollars").val();
             addBudgetItem(tempCategory, tempDollars);
             outPutter(tempCategory, tempDollars);
             console.log(budgetInfo.budgetItems);
         }
-        console.log(budgetInfo.categories)
     });
 
     //TODO:
-    //If trackingPercents = false add functionality to change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount, and remaining total spendingMoney
-    //Else change the prompt "Do you wanna add something else?" and updates Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
+    // if tracking percentages, need to display categories they've selected with percentages that automatically add up to 100% and also display the $ amount based on the percentage selected and then update budgetItems object with the percentages set by user
+    // Update Outputter function to check for "trackingPercentages" variable and adjust output
+    //If trackingPercents = true update Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
 
     // END OF PAGELOAD FUNCTION
 });
