@@ -6,16 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Budget</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <link rel=stylesheet type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
+  <!--title  -->
+
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="animated fadeInDown">
+        Good + Simple Budget Tracker
+      </h1>
+      <h2 class="animated fadeInLeft" class="subtitle">
+        fight for what's worth saving ;)
+      </h2>
+    </div>
+  </div>
+</section>
 
     <div id="prompt">
         <h2>After fixed costs, how much do you have leftover to spend?</h2>
     </div>
+
+    <!--attempting to put the checkbox, input and button on the same row  -->
+    <!-- <div class="block">
+      <div class="columns"> -->
+        <div class="column is-10">
     <fieldset id="categoryCheckbox">
         <div>
             <input class="checkbox" type="checkbox" id="catFood" name="category" value="catFood">
@@ -41,6 +62,7 @@
             <input class="checkbox" type="checkbox" id="catOther" name="category" value="catOther">
             <label for="catOther">Other</label>
         </div>
+      </div>
     </fieldset>
     <!-- raido button set to be hidden until stage 3 -->
     <div id="radioButtons">
@@ -68,16 +90,35 @@
         name="category" value="catOther">
         <label for="radioOther">Other</label>
     </div>
-
-    <input id="userInput">
-    <input id="userInputDollars" type="number">
     <div id="yesNoButtons" class="buttons">
         <span id="yes" value="yes" class="button is-success">Yes</span>
         <span id="no" value="no" class="button is-danger">No</span>
     </div>
     <button id="submit" type="submit">Submit</button>
 
-    
+    <!--reformat this userInput to fit Bulma  -->
+    <div class="block">
+      <div class="columns">
+        <div class="column is-10">
+          <div class="field">
+        <!-- <label class="label">After fixed costs how much do you have leftover to spend?</label> -->
+        <div class="control">
+          <input id="userInputDollars" class="input" type="text" placeholder="$ Dollar Amount $">
+        </div>
+        <p class="help">Type in above</p>
+      </div>
+      </div>
+      <!-- <input id="userInputDollars" type="number"> -->
+      <!-- <button id="submit" type="submit">Submit</button> -->
+        <div class="column is-2">
+
+        <a id="submit" class="button is-primary is-outlined is-auto">Submit</a>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- <input id="userInputDollars" type="number"> -->
+    <!-- <button id="submit" type="submit">Submit</button> -->
     <div id="output"></div>
 
     <script src="./assets/javascript/logic.js">

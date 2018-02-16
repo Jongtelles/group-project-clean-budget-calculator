@@ -1,7 +1,12 @@
 /* testing link with background color */
 
 body {
-    background-color: rgba(200, 128, 128, 1);
+    /* background-color: rgba(200, 128, 128, 1); */
+    background-color: whiteSmoke;
+}
+
+h1 {
+  font-size: 60px;
 }
 
 #userInput {
@@ -18,4 +23,25 @@ body {
 
 #yesNoButtons {
     display: none;
+}
+
+.field {
+  margin-left: 25px;
+}
+
+#userInputDollars {
+  height: 150px;
+  font-size: 50px;
+  /* margin-left: 25px; */
+}
+
+#submit {
+  height: 150px;
+  width: 200px;
+  margin-right: 30px;
+}
+
+#categoryCheckbox {
+  height: 150px;
+  width: 300px;
 }
