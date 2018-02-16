@@ -89,7 +89,36 @@
         <span id="yes" value="yes" class="button is-success">Yes</span>
         <span id="no" value="no" class="button is-danger">No</span>
     </div>
-
+    <!-- User percentage allocation interface  -->
+    <fieldset id="percentageAllocator">
+        <div>
+            <label id="catFoodLabel" for="catFood">Food</label>
+            <input id="catFoodInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+        <div>
+            <label id="catClothingLabel" for="catClothing">Clothing</label>
+            <input id="catClothingInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+        <div>
+            <label id="catEntertainmentLabel" for="catEntertainment">Entertainment</label>
+            <input id="catEntertainmentInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+        <div>
+            <label id="catSavingsLabel" for="catSavings">Savings</label>
+            <input id="catSavingsInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+        <div>
+            <label id="catTransportationLabel" for="catTransportation">Transportation</label>
+            <input id="catTransportationInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+        <div>
+            <label id="catOtherLabel" for="catOther">Other</label>
+            <input id="catOtherInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+        </div>
+    </fieldset>
+    <div class="column is-2">
+        <a id="percentageAllocatorButton" class="button is-primary is-outlined is-auto">Submit</a>
+    </div>
     <!--reformat this userInput to fit Bulma  -->
     <div class="block">
         <div class="columns">
@@ -97,7 +126,7 @@
                 <div class="field">
                     <!-- <label class="label">After fixed costs how much do you have leftover to spend?</label> -->
                     <div class="control">
-                        <input id="userInputDollars" class="input" type="text" placeholder="$ Dollar Amount $">
+                        <input id="userInputDollars" class="input" type="number" step=0.01 placeholder="$ Dollar Amount $">
                     </div>
                     <p class="help">Type in above</p>
                 </div>
