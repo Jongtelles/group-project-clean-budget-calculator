@@ -14,20 +14,20 @@
 </head>
 
 <body>
-  <!--title  -->
+    <!--title  -->
 
-<section class="hero is-primary is-medium">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="animated fadeInDown">
-        Good + Simple Budget Tracker
-      </h1>
-      <h2 class="animated fadeInLeft" class="subtitle">
-        fight for what's worth saving ;)
-      </h2>
-    </div>
-  </div>
-</section>
+    <section class="hero is-primary is-medium">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="animated fadeInDown">
+                    Good + Simple Budget Tracker
+                </h1>
+                <h2 class="animated fadeInLeft" class="subtitle">
+                    fight for what's worth saving ;)
+                </h2>
+            </div>
+        </div>
+    </section>
 
     <div id="prompt">
         <h2>After fixed costs, how much do you have leftover to spend?</h2>
@@ -36,85 +36,79 @@
     <!--attempting to put the checkbox, input and button on the same row  -->
     <!-- <div class="block">
       <div class="columns"> -->
-        <div class="column is-10">
-    <fieldset id="categoryCheckbox">
-        <div>
-            <input class="checkbox" type="checkbox" id="catFood" name="category" value="catFood">
-            <label for="catFood">Food</label>
-        </div>
-        <div>
-            <input class="checkbox" type="checkbox" id="catClothing" name="category" value="catClothing">
-            <label for="catClothing">Clothing</label>
-        </div>
-        <div>
-            <input class="checkbox" type="checkbox" id="catEntertainment" name="category" value="catEntertainment">
-            <label for="catEntertainment">Entertainment</label>
-        </div>
-        <div>
-            <input class="checkbox" type="checkbox" id="catSavings" name="category" value="catSavings">
-            <label for="catSavings">Savings</label>
-        </div>
-        <div>
-            <input class="checkbox" type="checkbox" id="catTransportation" name="category" value="catTransportation">
-            <label for="catTransportation">Transportation</label>
-        </div>
-        <div>
-            <input class="checkbox" type="checkbox" id="catOther" name="category" value="catOther">
-            <label for="catOther">Other</label>
-        </div>
-      </div>
+    <div class="column is-10">
+        <fieldset id="categoryCheckbox">
+            <div>
+                <input class="checkbox" type="checkbox" id="catFood" name="category" value="catFood">
+                <label for="catFood">Food</label>
+            </div>
+            <div>
+                <input class="checkbox" type="checkbox" id="catClothing" name="category" value="catClothing">
+                <label for="catClothing">Clothing</label>
+            </div>
+            <div>
+                <input class="checkbox" type="checkbox" id="catEntertainment" name="category" value="catEntertainment">
+                <label for="catEntertainment">Entertainment</label>
+            </div>
+            <div>
+                <input class="checkbox" type="checkbox" id="catSavings" name="category" value="catSavings">
+                <label for="catSavings">Savings</label>
+            </div>
+            <div>
+                <input class="checkbox" type="checkbox" id="catTransportation" name="category" value="catTransportation">
+                <label for="catTransportation">Transportation</label>
+            </div>
+            <div>
+                <input class="checkbox" type="checkbox" id="catOther" name="category" value="catOther">
+                <label for="catOther">Other</label>
+            </div>
+    </div>
     </fieldset>
     <!-- raido button set to be hidden until stage 3 -->
     <div id="radioButtons">
-        <input type="radio" class="radioB" id="radioFood"
-            name="category" value="catFood">
+        <input type="radio" class="radioB" id="radioFood" name="category" value="catFood">
         <label for="radioFood">Food</label>
 
-        <input type="radio" class="radioB" id="radioClothing"
-            name="category" value="catClothing">
+        <input type="radio" class="radioB" id="radioClothing" name="category" value="catClothing">
         <label for="radioClothing">Clothing</label>
 
-        <input type="radio" class="radioB" id="radioEntertainment"
-            name="category" value="catEntertainment">
+        <input type="radio" class="radioB" id="radioEntertainment" name="category" value="catEntertainment">
         <label for="radioEntertainment">Entertainment</label>
 
-        <input type="radio" class="radioB" id="radioSavings"
-            name="category" value="catSavings">
+        <input type="radio" class="radioB" id="radioSavings" name="category" value="catSavings">
         <label for="raidoSavings">Savings</label>
 
-        <input type="radio" class="radioB" id="radioTransportation"
-        name="category" value="catTransportation">
+        <input type="radio" class="radioB" id="radioTransportation" name="category" value="catTransportation">
         <label for="radioTransportation">Transportation</label>
 
-        <input type="radio" class="radioB" id="radioOther"
-        name="category" value="catOther">
+        <input type="radio" class="radioB" id="radioOther" name="category" value="catOther">
         <label for="radioOther">Other</label>
     </div>
+    <!-- buttons that begin hidden, and get revealed when the user is asked about tracking category percents -->
     <div id="yesNoButtons" class="buttons">
         <span id="yes" value="yes" class="button is-success">Yes</span>
         <span id="no" value="no" class="button is-danger">No</span>
     </div>
-    <button id="submit" type="submit">Submit</button>
 
     <!--reformat this userInput to fit Bulma  -->
     <div class="block">
-      <div class="columns">
-        <div class="column is-10">
-          <div class="field">
-        <!-- <label class="label">After fixed costs how much do you have leftover to spend?</label> -->
-        <div class="control">
-          <input id="userInputDollars" class="input" type="text" placeholder="$ Dollar Amount $">
-        </div>
-        <p class="help">Type in above</p>
-      </div>
-      </div>
-      <!-- <input id="userInputDollars" type="number"> -->
-      <!-- <button id="submit" type="submit">Submit</button> -->
-        <div class="column is-2">
+        <div class="columns">
+            <div class="column is-10">
+                <div class="field">
+                    <!-- <label class="label">After fixed costs how much do you have leftover to spend?</label> -->
+                    <div class="control">
+                        <input id="userInputDollars" class="input" type="text" placeholder="$ Dollar Amount $">
+                    </div>
+                    <p class="help">Type in above</p>
+                </div>
+            </div>
+            <!-- <input id="userInputDollars" type="number"> -->
+            <!-- <button id="submit" type="submit">Submit</button> -->
+            <div class="column is-2">
 
-        <a id="submit" class="button is-primary is-outlined is-auto">Submit</a>
+                <a id="submit" class="button is-primary is-outlined is-auto">Submit</a>
+            </div>
         </div>
-      </div>
     </div>
     <!-- </div> -->
     <!-- <input id="userInputDollars" type="number"> -->

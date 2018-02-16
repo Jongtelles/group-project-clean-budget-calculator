@@ -89,6 +89,7 @@ $(document).ready(function () {
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
         $("#radioButtons").toggle();
+        $("#submit").toggle();
     });
     // sets value of trackingPercents based on button click and adjusts display of input elements
     $("#no").on("click", function () {
@@ -96,6 +97,7 @@ $(document).ready(function () {
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
         $("#radioButtons").toggle();
+        $("#submit").toggle();
     });
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
@@ -112,6 +114,7 @@ $(document).ready(function () {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#yesNoButtons").toggle();
+            $("#submit").toggle();
             $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
@@ -137,6 +140,8 @@ $(document).ready(function () {
     });
 
     //TODO:
+
+
     // if tracking percentages, need to display categories they've selected with percentages that automatically add up to 100% and also display the $ amount based on the percentage selected and then update budgetItems object with the percentages set by user
     // Update Outputter function to check for "trackingPercentages" variable and adjust output
     //If trackingPercents = true update Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
