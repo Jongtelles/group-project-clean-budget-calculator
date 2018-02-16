@@ -88,12 +88,14 @@ $(document).ready(function () {
         budgetInfo.trackingPercents = true;
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
+        $("#radioButtons").toggle();
     });
     // sets value of trackingPercents based on button click and adjusts display of input elements
     $("#no").on("click", function () {
         budgetInfo.trackingPercents = false;
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
+        $("#radioButtons").toggle();
     });
 
     //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
@@ -112,12 +114,25 @@ $(document).ready(function () {
             $("#yesNoButtons").toggle();
             $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
-            // below line will be re-written based on category selector solution
-            var tempCategory = $("#userInput").val();
-            var tempDollars = $("#userInputDollars").val();
-            addBudgetItem(tempCategory, tempDollars);
-            outPutter(tempCategory, tempDollars);
-            console.log(budgetInfo.budgetItems);
+            // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
+            if ($("#radioFood").prop("checked") == true) {
+                var stageThreeCat = "Food"
+            } else if ($("#radioClothing").prop("checked") == true) {
+                var stageThreeCat = "Clothing"
+            } else if ($("#radioEntertainment").prop("checked") == true) {
+                var stageThreeCat = "Entertainment"
+            } else if ($("#radioSavings").prop("checked") == true) {
+                var stageThreeCat = "Savings"
+            } else if ($("#radioTransportation").prop("checked") == true) {
+                var stageThreeCat = "Transportation"
+            } else if ($("#radioOther").prop("checked") == true) {
+                var stageThreeCat = "Other"
+            };
+            var stageThreeCost = $("#userInputDollars").val();
+            // defineCat();
+            addBudgetItem(stageThreeCat, stageThreeCost);
+            outPutter(stageThreeCat, stageThreeCost);
+            console.log("food? " + $("radioFood").prop("checked"));
         }
     });
 
