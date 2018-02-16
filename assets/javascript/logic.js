@@ -45,6 +45,39 @@ $(document).ready(function () {
         //budgetInfo object end
     };
 
+    // Get and Set local storage functions 
+    var getBudgetItemFromStorage = function () {
+
+        var budgetObject = localStorage.getItem('budObject');
+        //console.log(budetObject.spendingMoney);
+        if (budgetObject != null) {
+            budgetInfo = JSON.parse(budgetObject);
+            console.log(budgetInfo.spendingMoney);
+        }
+
+        // where & which fields from a saved budgetInfo object need to be displayed ? 
+        // that could go here, or call a function here to do it
+        //
+        //
+        //
+
+    }
+
+    var setBudgetItemFromStorage = function () {
+
+        // clear ? 
+        // localStorage.clear()
+
+        // clears all local storage, not just our "budObject"  -- this way, without clear((),// should just  
+        // replace, which should be adequate 
+
+        budgetInfo.spendingMoney+= 1000;
+        localStorage.setItem('budObject', JSON.stringify(budgetInfo));
+        
+       // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ? 
+    }
+
+
     // budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1] (making note of the solution)
 
     //function that allows user to add items to the budget array based on category and dollar amount
@@ -142,4 +175,12 @@ $(document).ready(function () {
     //If trackingPercents = true update Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
 
     // END OF PAGELOAD FUNCTION
+    budgetInfo.spendingMoney = 5000;
+
+    // SHOULD BE AT END 
+    setBudgetItemFromStorage();
+
+    // SHOULD BE FIRST 
+    getBudgetItemFromStorage();
+
 });
