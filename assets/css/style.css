@@ -5,6 +5,10 @@ body {
     background-color: whiteSmoke;
 }
 
+h1 {
+  font-size: 60px;
+}
+
 #userInput {
     display: none;
 }
@@ -15,4 +19,25 @@ body {
 
 .dropdown {
     display: none;
+}
+
+.field {
+  margin-left: 25px;
+}
+
+#userInputDollars {
+  height: 150px;
+  font-size: 50px;
+  /* margin-left: 25px; */
+}
+
+#submit {
+  height: 150px;
+  width: 200px;
+  margin-right: 30px;
+}
+
+#categoryCheckbox {
+  height: 150px;
+  width: 300px;
 }
