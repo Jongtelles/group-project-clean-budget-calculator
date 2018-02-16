@@ -15,3 +15,7 @@ body {
 #radioButtons{
     display: none;
 }
+
+#yesNoButtons {
+    display: none;
+}
