@@ -44,6 +44,39 @@ $(document).ready(function () {
         },
         //budgetInfo object end
     };
+    var displaySavedBudgetInfo = function () {
+
+        var bArr = budgetInfo.budgetItems;
+        var html = "";
+        console.log("dsbi : " + bArr.length);
+
+        // maybe a simple table looks better than what existing outPutter() does  ?    AC 02/17/2018
+        /*   for (var i = 0; i < bArr.length; i++) {
+            outPutter(bArr[i][0], bArr[i][1]);
+        } */
+
+        // we have budget items 
+        if (bArr.length > 0) {
+
+            // write the table header to html string 
+            // note with bulma class "table", which presents well but 
+            // seems to default to white background - may need modification 
+            html = '<table class="table"><thead><tr><th>Category</th><th>Cost</th></tr></thead><tbody>';
+             for (var i = 0; i < bArr.length; i++) {
+
+                // append each row of the table 
+                html += "<tr><td>" + bArr[i][0] + " </td><td>" + bArr[i][1] + "</td></tr>";
+                console.log("budgetCategory: " + bArr[i][0] + "   budgetAmount: " + bArr[i][1]);
+            } 
+
+            // end the table 
+            html += "</tbody></table>";  
+
+            // and append the html to output div -- jquery append closes tags 
+            // ergo multiple cals to append do not work correctly in this scenario 
+           $("#output").append(html);
+        }
+    }    
 
     // Get and Set local storage functions 
     var getBudgetItemFromStorage = function () {
@@ -52,11 +85,12 @@ $(document).ready(function () {
         //console.log(budetObject.spendingMoney);
         if (budgetObject != null) {
             budgetInfo = JSON.parse(budgetObject);
-            console.log(budgetInfo.spendingMoney);
+            console.log("spend : " + budgetInfo.spendingMoney);
         }
 
         // where & which fields from a saved budgetInfo object need to be displayed ? 
         // that could go here, or call a function here to do it
+        displaySavedBudgetInfo();
         //
         //
         //
@@ -94,6 +128,8 @@ $(document).ready(function () {
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
     };
+
+
     //sets the variables in the budgetInfo object
     var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
         budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
@@ -176,6 +212,10 @@ $(document).ready(function () {
 
     // END OF PAGELOAD FUNCTION
     budgetInfo.spendingMoney = 5000;
+ 
+    budgetInfo.budgetItems.push(["Food", 100]);
+    budgetInfo.budgetItems.push(["Savings", 200]);
+    budgetInfo.budgetItems.push([ "Other", 300]);
 
     // SHOULD BE AT END 
     setBudgetItemFromStorage();
