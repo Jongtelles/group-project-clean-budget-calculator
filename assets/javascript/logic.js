@@ -50,7 +50,46 @@ $(document).ready(function () {
         },
         //budgetInfo object end
     };
-
+    var radioToggler = function(){
+        if(budgetInfo.categories.catFood.isTracked == true){
+            $(".foodR").toggle()
+        }
+        if(budgetInfo.categories.catClothing.isTracked == true){
+            $(".clothingR").toggle()
+        } 
+        if(budgetInfo.categories.catEntertainment.isTracked == true){
+            $(".entertainmentR").toggle()
+        } 
+        if(budgetInfo.categories.catSavings.isTracked == true){
+            $(".savingsR").toggle()
+        } 
+        if(budgetInfo.categories.catTransportation.isTracked == true){
+            $(".transportationR").toggle()
+        } 
+        if(budgetInfo.categories.catOther.isTracked == true){
+            $(".otherR").toggle()
+        } 
+    };
+    var allocationToggler = function(){
+        if(budgetInfo.categories.catFood.isTracked == true){
+            $(".foodP").toggle()
+        }
+        if(budgetInfo.categories.catClothing.isTracked == true){
+            $(".clothingP").toggle()
+        } 
+        if(budgetInfo.categories.catEntertainment.isTracked == true){
+            $(".entertainmentP").toggle()
+        } 
+        if(budgetInfo.categories.catSavings.isTracked == true){
+            $(".savingsP").toggle()
+        } 
+        if(budgetInfo.categories.catTransportation.isTracked == true){
+            $(".transportationP").toggle()
+        } 
+        if(budgetInfo.categories.catOther.isTracked == true){
+            $(".otherP").toggle()
+        } 
+    }
     // budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1] (making note of the solution)
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -113,6 +152,7 @@ $(document).ready(function () {
         budgetInfo.trackingPercents = true;
         $("#yesNoButtons").toggle();
         $("#percentageAllocator").toggle();
+        allocationToggler();
         $("#percentageAllocatorButton").toggle();
         $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
     });
@@ -121,7 +161,7 @@ $(document).ready(function () {
         budgetInfo.trackingPercents = false;
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
-        $("#radioButtons").toggle();
+        radioToggler();
         $("#submit").toggle();
         $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
     });
@@ -139,7 +179,7 @@ $(document).ready(function () {
             $("#percentageAllocator").toggle();
             $("#submit").toggle();
             $("#percentageAllocatorButton").toggle();
-            $("#radioButtons").toggle();
+            radioToggler();
             $("#userInputDollars").toggle();
             $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
             // converts entered values to integers and sets the allocated percentages in the budgetInfo object. since default values are set to 0, when we only display categories the user has selected to track this functionality should remain intact
