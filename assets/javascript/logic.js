@@ -4,7 +4,7 @@ $(document).ready(function () {
     var budgetInfo = {
         //user inputs total amount of $ to track
         spendingMoney: undefined,
-        trackingPercents: undefined,
+        trackingPercents: false,
         //array for user inputted budgetItems
         budgetItems: [],
         incomeSubmitted: false,
@@ -94,7 +94,8 @@ $(document).ready(function () {
         }
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
-        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far.");
+        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + ((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01)) * 100) + " of your allocation for that category, you have $" + ((budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01) - catTotalDollarAmount)) + " remaining in that category."));
+        // $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far.");
     };
 
     //sets the variables in the budgetInfo object
@@ -109,33 +110,34 @@ $(document).ready(function () {
         checkboxChecker(whichCheckboxAreYou, isTrackedBool);
     });
     // sets value of trackingPercents based on button click and adjusts display of input elements
-    $("#yes").on("click", function () {
-        budgetInfo.trackingPercents = true;
-        $("#yesNoButtons").toggle();
-        $("#percentageAllocator").toggle();
-        $("#percentageAllocatorButton").toggle();
-        $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
-    });
-    // sets value of trackingPercents based on button click and adjusts display of input elements
-    $("#no").on("click", function () {
-        budgetInfo.trackingPercents = false;
-        $("#yesNoButtons").toggle();
-        $("#userInputDollars").toggle();
-        $("#radioButtons").toggle();
-        $("#submit").toggle();
-        $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
-    });
+    // $("#yes").on("click", function () {
+    //     budgetInfo.trackingPercents = true;
+    //     $("#yesNoButtons").toggle();
+    //     $("#percentageAllocator").toggle();
+    //     $("#percentageAllocatorButton").toggle();
+    //     $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
+    // });
+    // // sets value of trackingPercents based on button click and adjusts display of input elements
+    // $("#no").on("click", function () {
+    //     budgetInfo.trackingPercents = false;
+    //     $("#yesNoButtons").toggle();
+    //     $("#userInputDollars").toggle();
+    //     $("#radioButtons").toggle();
+    //     $("#submit").toggle();
+    //     $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
+    // });
 
     // new button for allocating percents, only displayed if user selects "yes" when asked if they want to track percents
     $("#percentageAllocatorButton").on("click", function () {
         // set local variable percentTotal to the total amount entered in the percentage allocator fields, each input defaults to 0
         var percentTotal = (parseInt($("#catFoodInput").val(), 10) + parseInt($("#catClothingInput").val(), 10) + parseInt($("#catEntertainmentInput").val(), 10) + parseInt($("#catSavingsInput").val(), 10) + parseInt($("#catTransportationInput").val(), 10) + parseInt($("#catOtherInput").val(), 10));
         // if the percents total more than 100, display error message and return
-        if (percentTotal > 100) {
+        if (percentTotal != 100) {
             $("#prompt").html("<h2>Please ensure total equals 100%</h2>");
             console.log(percentTotal);
             return;
         } else {
+            budgetInfo.trackingPercents = true;
             $("#percentageAllocator").toggle();
             $("#submit").toggle();
             $("#percentageAllocatorButton").toggle();
@@ -165,10 +167,13 @@ $(document).ready(function () {
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
-            $("#yesNoButtons").toggle();
+            // $("#yesNoButtons").toggle();
             $("#submit").toggle();
-            $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
+            $("#percentageAllocator").toggle();
+            $("#percentageAllocatorButton").toggle();
+            $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
+            // $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
             if ($("#radioFood").prop("checked") == true) {
                 var stageThreeCat = "Food"
