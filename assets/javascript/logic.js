@@ -94,7 +94,7 @@ $(document).ready(function () {
         }
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
-        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory);
+        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far.");
     };
 
     //sets the variables in the budgetInfo object
@@ -126,20 +126,36 @@ $(document).ready(function () {
         $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
     });
 
+    // new button for allocating percents, only displayed if user selects "yes" when asked if they want to track percents
     $("#percentageAllocatorButton").on("click", function () {
-        $("#percentageAllocator").toggle();
-        $("#submit").toggle();
-        $("#percentageAllocatorButton").toggle();
-        $("#radioButtons").toggle();
-        $("#userInputDollars").toggle();
-        $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
-        // foo a bunch of stuff
+        // set local variable percentTotal to the total amount entered in the percentage allocator fields, each input defaults to 0
+        var percentTotal = (parseInt($("#catFoodInput").val(), 10) + parseInt($("#catClothingInput").val(), 10) + parseInt($("#catEntertainmentInput").val(), 10) + parseInt($("#catSavingsInput").val(), 10) + parseInt($("#catTransportationInput").val(), 10) + parseInt($("#catOtherInput").val(), 10));
+        // if the percents total more than 100, display error message and return
+        if (percentTotal > 100) {
+            $("#prompt").html("<h2>Please ensure total equals 100%</h2>");
+            console.log(percentTotal);
+            return;
+        } else {
+            $("#percentageAllocator").toggle();
+            $("#submit").toggle();
+            $("#percentageAllocatorButton").toggle();
+            $("#radioButtons").toggle();
+            $("#userInputDollars").toggle();
+            $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
+            // converts entered values to integers and sets the allocated percentages in the budgetInfo object. since default values are set to 0, when we only display categories the user has selected to track this functionality should remain intact
+            budgetInfo.categories.catFood.percentage = parseInt($("#catFoodInput").val(), 10);
+            budgetInfo.categories.catClothing.percentage = parseInt($("#catClothingInput").val(), 10);
+            budgetInfo.categories.catEntertainment.percentage = parseInt($("#catEntertainmentInput").val(), 10);
+            budgetInfo.categories.catSavings.percentage = parseInt($("#catSavingsInput").val(), 10);
+            budgetInfo.categories.catTransportation.percentage = parseInt($("#catTransportationInput").val(), 10);
+            budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
+        }
     });
 
-    //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
+    // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
         if (budgetInfo.incomeSubmitted === false) {
-            //just in case, convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
+            // convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
             budgetInfo.spendingMoney = parseInt($("#userInputDollars").val(), 10);
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
