@@ -14,31 +14,37 @@ $(document).ready(function () {
             catFood: {
                 name: "Food",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catClothing: {
                 name: "Clothing",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catEntertainment: {
                 name: "Entertainment",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catSavings: {
                 name: "Savings",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catTransportation: {
                 name: "Transportation",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catOther: {
                 name: "Other",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
         },
@@ -46,21 +52,51 @@ $(document).ready(function () {
     };
 
     // budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1] (making note of the solution)
-
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
         budgetInfo.budgetItems.push({
             category: cat,
             dollarAmount: dollars
         });
+        // based on category of new budget item, set totalSpent value of that category to current value + cost of new budget item (this will keep a running tally of each category right in the budgetInfo categories object)
+        if (cat === "Food") {
+            budgetInfo.categories.catFood.totalSpent += dollars;
+        } else if (cat === "Clothing") {
+            budgetInfo.categories.catClothing.totalSpent += dollars;
+        } else if (cat === "Entertainment") {
+            budgetInfo.categories.catEntertainment.totalSpent += dollars;
+        } else if (cat === "Savings") {
+            budgetInfo.categories.catSavings.totalSpent += dollars;
+        } else if (cat === "Transportation") {
+            budgetInfo.categories.catTransportation.totalSpent += dollars;
+        } else if (cat === "Other") {
+            budgetInfo.categories.catOther.totalSpent += dollars;
+        }
         $("#prompt").html("<h2>Got it! Wanna add anything else?</h2>");
     };
 
+    var catTotalDollarAmount;
     //function outputs basic user input to output field, not including percentage tracking
     var outPutter = function (appendCategory, appendCost) {
+        // based on category, set variable that will be displayed to user to totalSpent in that category
+        if (appendCategory === "Food") {
+            catTotalDollarAmount = budgetInfo.categories.catFood.totalSpent;
+        } else if (appendCategory === "Clothing") {
+            catTotalDollarAmount = budgetInfo.categories.catClothing.totalSpent;
+        } else if (appendCategory === "Entertainment") {
+            catTotalDollarAmount = budgetInfo.categories.catEntertainment.totalSpent;
+        } else if (appendCategory === "Savings") {
+            catTotalDollarAmount = budgetInfo.categories.catSavings.totalSpent;
+        } else if (appendCategory === "Transportation") {
+            catTotalDollarAmount = budgetInfo.categories.catTransportation.totalSpent;
+        } else if (appendCategory === "Other") {
+            catTotalDollarAmount = budgetInfo.categories.catOther.totalSpent;
+        }
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
+        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory);
     };
+
     //sets the variables in the budgetInfo object
     var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
         budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
@@ -87,7 +123,7 @@ $(document).ready(function () {
         $("#userInputDollars").toggle();
         $("#radioButtons").toggle();
         $("#submit").toggle();
-        $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy?</h2>");
+        $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
     });
 
     $("#percentageAllocatorButton").on("click", function () {
@@ -96,7 +132,7 @@ $(document).ready(function () {
         $("#percentageAllocatorButton").toggle();
         $("#radioButtons").toggle();
         $("#userInputDollars").toggle();
-        $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy?</h2>");
+        $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
         // foo a bunch of stuff
     });
 
@@ -131,76 +167,13 @@ $(document).ready(function () {
             } else if ($("#radioOther").prop("checked") == true) {
                 var stageThreeCat = "Other"
             };
-            var stageThreeCost = $("#userInputDollars").val();
+            var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             // defineCat();
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
             console.log("food? " + $("radioFood").prop("checked"));
         }
     });
-
-    //TODO:
-
-    //     var toggler = function(toggleMe){
-    //         $(toggleMe).toggle();
-    //     };
-
-    //     toggler(this);
-    // // takes argument of
-    //     var funk = function(cat){
-    //         if (budgetInfo.categories[cat].isTracked === true)
-    //     }
-    // // use this to set percent values in the object, pass it a variable that's set to the .val() of a jquery selector, and the user's input for the percentNumber
-    //     var percentSetter = function (whichCatAreYou, percentNumber) {
-    //         budgetInfo.categories[whichCatAreYou].percentage = percentNumber;
-    //     };
-
-    //     var categoryFinder = function(whichCatAreYou){
-    //         budgetInfo.categories[whichCatAreYou]
-    // return whichCatAreYou
-    //     }
-    //     finds which categories are tracked
-
-    //     budgetInfo.budgetItems.categories
-
-    //     function roundPercentageTotals(numArr) {
-
-    //         // Total of all numbers passed.
-    //         for loop that adds a numArr[] for each tracked category
-    //         var total = numArr[0] + numArr[1] + numArr[2];
-
-    //         // Percentage representations of each number (out of 100).
-    //         var num1Percent = Math.round((numArr[0] / total) * 100);
-    //         var num2Percent = Math.round((numArr[1] / total) * 100);
-    //         var num3Percent = Math.round((numArr[2] / total) * 100);
-
-    //         // Total percent of the 3 numbers combined (doesnt always equal 100%).
-    //         var totalPercentage = num1Percent + num2Percent + num3Percent;
-
-    //         // If not 100%, then we need to work around it by subtracting from the largest number (not as accurate but works out).
-    //         if (totalPercentage != 100) {
-    //             // Get the index of the largest number in the array.
-    //             var index = getLargestNumInArrayIndex(numArr);
-
-    //             // Take the difference away from the largest number.
-    //             numArr[index] = numArr[index] - (totalPercentage - 100);
-
-    //             // Re-run this method recursively, until we get a total percentage of 100%.
-    //             return roundPercentageTotals(numArr);
-    //         }
-
-    //         // Return the percentage version of the array passed in.
-    //         return [num1Percent, num2Percent, num3Percent];
-    //     }
-
-    //     function getLargestNumInArrayIndex(array) {
-    //         return array.indexOf(Math.max.apply(Math, array));
-    //     }
-
-
-    // if tracking percentages, need to display categories they've selected with percentages that automatically add up to 100% and also display the $ amount based on the percentage selected and then update budgetItems object with the percentages set by user
-    // Update Outputter function to check for "trackingPercentages" variable and adjust output
-    //If trackingPercents = true update Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
 
     // END OF PAGELOAD FUNCTION
 });
