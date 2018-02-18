@@ -82,14 +82,14 @@ $(document).ready(function () {
             // seems to default to white background - may need modification 
             html = '<table class="table">'
             if (inclHdr) {
-                html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal">Cost</th></tr></thead > ';
+                html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
             }
             html += '<tbody> ';
 
             for (var i = 0; i < bArr.length; i++) {
 
                 // append each row of the table 
-                html += "<tr><td>" + bArr[i].category + " </td><td>" + bArr[i].dollarAmount + "</td></tr>";
+                html += '<tr><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
                 console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
             }
 
@@ -115,10 +115,11 @@ $(document).ready(function () {
 
         // where & which fields from a saved budgetInfo object need to be displayed ? 
         // that could go here, or call a function here to do it
-        displaySavedBudgetInfo(true, false);
+        displaySavedBudgetInfo(true, true);
+        // argument 1 - include a header, only for a table
+        // arguemnt 2 - display in table format 
         //
-        //
-        //
+        
 
     }
 
@@ -327,15 +328,14 @@ $(document).ready(function () {
    
    getBudgetInfoFromStorage();
     
-/*     USED FOR TESTING - MAY BE NEEDED AGAIN 
-
+/*   USED FOR TESTING - MAY BE NEEDED AGAIN  
+ 
     budgetInfo.spendingMoney = 5000;
-
-    addBudgetItem("Food", 100);
-    addBudgetItem("Savings", 200);
+    addBudgetItem("Food", 10);
+    addBudgetItem("Savings", 2000);
     addBudgetItem("Other", 300); 
-    
-*/
+     */
+
 
 // SHOULD BE AT END 
 // setBudgetInfoToStorage();
