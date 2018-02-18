@@ -9,7 +9,7 @@ h1 {
 #prompt {
   margin-left: 30px;
   margin-top: 80px;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 #categoryCheckbox {
@@ -23,10 +23,8 @@ h1 {
 #yesNoButtons {
     display: none;
     margin-top: 50px;
-    margin-left: 300px;
     width: 400px;
     padding-left: 75px;
-    /* padding-right: 10px; */
     padding-top: 25px;
     padding-bottom: 20px;
     background-color: MediumAquaMarine;
@@ -51,14 +49,12 @@ h1 {
 #userInputDollars {
     height: 150px;
     font-size: 50px;
-    /* margin-left: 25px; */
+    margin-top: 30px;
 }
 
 #submit {
     height: 80px;
     width: 200px;
-    margin-left: 300px;
-
 }
 
 #categoryCheckbox {
@@ -68,19 +64,111 @@ h1 {
     color: white;
     border: none;
     padding: 20px;
-    height: 220px;
-    margin-left: 200px;
+    height: 250px;
     margin-top: 30px;
     font-size: 20px;
+}
+
+.checkbox {
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+}
+
+#radioButtons {
+  margin: 10px;
+  border: 1px solid MediumAquaMarine;
+  font-size: 20px;
+  color: white;
+  background-color: MediumAquaMarine;
+}
+
+#radioFood {
+  margin: 15px;
+  margin-left: 30px;
+}
+
+#radioClothing {
+  margin: 15px;
+}
+
+#radioEntertainment {
+  margin: 15px;
+}
+
+#radioSavings {
+  margin: 15px;
+}
+
+#radioTransportation {
+  margin: 15px;
+}
+
+#radioOther {
+  margin: 15px;
+}
+#percentageAllocator {
+    display: none;
+    background-color: MediumAquaMarine;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 30px;
+    border: none;
+    width: 40%;
+}
+
+#catFoodInput {
+  float: right;
+  height: 30px;
+  width: 30px;
+}
+
+#catClothingInput {
+  float: right;
+  height: 30px;
+  width: 30px;
+}
+
+#catEntertainmentInput {
+  float: right;
+  height: 30px;
+  width: 30px;
+}
+
+#catSavingsInput {
+  float: right;
+  height: 30px;
+  width: 30px;
+}
+
+#catTransportationInput {
+  float: right;
+  height: 30px;
+  width: 30px;
 
 }
 
-#percentageAllocator {
-    display: none;
+#catOtherInput {
+  float: right;
+  height: 30px;
+  width: 30px;
+
 }
 
 #percentageAllocatorButton {
     display: none;
+    /*these attributes do not display*/
+    height: 80px;
+    width: 200px;
+    margin: 10px;
+}
+
+#output {
+  color: white;
+  background-color: MediumAquaMarine;
+  font-size: 30px;
+  padding-left: 15px;
 }
 
 .footer {
