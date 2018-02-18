@@ -4,7 +4,7 @@ $(document).ready(function () {
     var budgetInfo = {
         //user inputs total amount of $ to track
         spendingMoney: undefined,
-        trackingPercents: false,
+        trackingPercents: undefined,
         //array for user inputted budgetItems
         budgetItems: [],
         incomeSubmitted: false,
@@ -14,37 +14,44 @@ $(document).ready(function () {
             catFood: {
                 name: "Food",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catClothing: {
                 name: "Clothing",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catEntertainment: {
                 name: "Entertainment",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catSavings: {
                 name: "Savings",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catTransportation: {
                 name: "Transportation",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
             catOther: {
                 name: "Other",
                 isTracked: false,
+                totalSpent: 0,
                 percentage: 0
             },
         },
         //budgetInfo object end
     };
-    var displaySavedBudgetInfo = function () {
+
+    var displaySavedBudgetInfo = function (inclHdr, makeTable) {
 
         var bArr = budgetInfo.budgetItems;
         var html = "";
@@ -56,30 +63,48 @@ $(document).ready(function () {
         } */
 
         // we have budget items 
-        if (bArr.length > 0) {
+    if (bArr.length > 0) {
+            
+        if (!makeTable) {
+
+            for (var i = 0; i < bArr.length; i++) {
+
+                $("#output").append("Category: " + bArr[i].category + " ");
+                $("#output").append("Cost: " + "$" + bArr[i].dollarAmount + "<br\>");
+
+                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            }
+
+        } else {
 
             // write the table header to html string 
             // note with bulma class "table", which presents well but 
             // seems to default to white background - may need modification 
-            html = '<table class="table"><thead><tr><th>Category</th><th>Cost</th></tr></thead><tbody>';
-             for (var i = 0; i < bArr.length; i++) {
+            html = '<table class="table">'
+            if (inclHdr) {
+                html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal">Cost</th></tr></thead > ';
+            }
+            html += '<tbody> ';
+
+            for (var i = 0; i < bArr.length; i++) {
 
                 // append each row of the table 
-                html += "<tr><td>" + bArr[i][0] + " </td><td>" + bArr[i][1] + "</td></tr>";
-                console.log("budgetCategory: " + bArr[i][0] + "   budgetAmount: " + bArr[i][1]);
-            } 
+                html += "<tr><td>" + bArr[i].category + " </td><td>" + bArr[i].dollarAmount + "</td></tr>";
+                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            }
 
             // end the table 
-            html += "</tbody></table>";  
+            html += "</tbody></table>";
 
             // and append the html to output div -- jquery append closes tags 
             // ergo multiple cals to append do not work correctly in this scenario 
-           $("#output").append(html);
+            $("#output").append(html);
         }
+    }
     }    
 
     // Get and Set local storage functions 
-    var getBudgetItemFromStorage = function () {
+    var getBudgetInfoFromStorage = function () {
 
         var budgetObject = localStorage.getItem('budObject');
         //console.log(budetObject.spendingMoney);
@@ -90,14 +115,14 @@ $(document).ready(function () {
 
         // where & which fields from a saved budgetInfo object need to be displayed ? 
         // that could go here, or call a function here to do it
-        displaySavedBudgetInfo();
+        displaySavedBudgetInfo(true, false);
         //
         //
         //
 
     }
 
-    var setBudgetItemFromStorage = function () {
+    var setBudgetInfoToStorage = function () {
 
         // clear ? 
         // localStorage.clear()
@@ -105,72 +130,160 @@ $(document).ready(function () {
         // clears all local storage, not just our "budObject"  -- this way, without clear((),// should just  
         // replace, which should be adequate 
 
-        budgetInfo.spendingMoney+= 1000;
         localStorage.setItem('budObject', JSON.stringify(budgetInfo));
         
        // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ? 
     }
 
 
+    var radioToggler = function(){
+        if(budgetInfo.categories.catFood.isTracked == true){
+            $(".foodR").toggle()
+        }
+        if(budgetInfo.categories.catClothing.isTracked == true){
+            $(".clothingR").toggle()
+        } 
+        if(budgetInfo.categories.catEntertainment.isTracked == true){
+            $(".entertainmentR").toggle()
+        } 
+        if(budgetInfo.categories.catSavings.isTracked == true){
+            $(".savingsR").toggle()
+        } 
+        if(budgetInfo.categories.catTransportation.isTracked == true){
+            $(".transportationR").toggle()
+        } 
+        if(budgetInfo.categories.catOther.isTracked == true){
+            $(".otherR").toggle()
+        } 
+    };
+    var allocationToggler = function(){
+        if(budgetInfo.categories.catFood.isTracked == true){
+            $(".foodP").toggle()
+        }
+        if(budgetInfo.categories.catClothing.isTracked == true){
+            $(".clothingP").toggle()
+        } 
+        if(budgetInfo.categories.catEntertainment.isTracked == true){
+            $(".entertainmentP").toggle()
+        } 
+        if(budgetInfo.categories.catSavings.isTracked == true){
+            $(".savingsP").toggle()
+        } 
+        if(budgetInfo.categories.catTransportation.isTracked == true){
+            $(".transportationP").toggle()
+        } 
+        if(budgetInfo.categories.catOther.isTracked == true){
+            $(".otherP").toggle()
+        } 
+    }
     // budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1] (making note of the solution)
-
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
         budgetInfo.budgetItems.push({
             category: cat,
             dollarAmount: dollars
         });
+        // based on category of new budget item, set totalSpent value of that category to current value + cost of new budget item (this will keep a running tally of each category right in the budgetInfo categories object)
+        if (cat === "Food") {
+            budgetInfo.categories.catFood.totalSpent += dollars;
+        } else if (cat === "Clothing") {
+            budgetInfo.categories.catClothing.totalSpent += dollars;
+        } else if (cat === "Entertainment") {
+            budgetInfo.categories.catEntertainment.totalSpent += dollars;
+        } else if (cat === "Savings") {
+            budgetInfo.categories.catSavings.totalSpent += dollars;
+        } else if (cat === "Transportation") {
+            budgetInfo.categories.catTransportation.totalSpent += dollars;
+        } else if (cat === "Other") {
+            budgetInfo.categories.catOther.totalSpent += dollars;
+        }
         $("#prompt").html("<h2>Got it! Wanna add anything else?</h2>");
+         setBudgetInfoToStorage();
     };
 
+    var catTotalDollarAmount;
     //function outputs basic user input to output field, not including percentage tracking
     var outPutter = function (appendCategory, appendCost) {
+        // based on category, set variable that will be displayed to user to totalSpent in that category
+        if (appendCategory === "Food") {
+            catTotalDollarAmount = budgetInfo.categories.catFood.totalSpent;
+        } else if (appendCategory === "Clothing") {
+            catTotalDollarAmount = budgetInfo.categories.catClothing.totalSpent;
+        } else if (appendCategory === "Entertainment") {
+            catTotalDollarAmount = budgetInfo.categories.catEntertainment.totalSpent;
+        } else if (appendCategory === "Savings") {
+            catTotalDollarAmount = budgetInfo.categories.catSavings.totalSpent;
+        } else if (appendCategory === "Transportation") {
+            catTotalDollarAmount = budgetInfo.categories.catTransportation.totalSpent;
+        } else if (appendCategory === "Other") {
+            catTotalDollarAmount = budgetInfo.categories.catOther.totalSpent;
+        }
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
+        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far.");
     };
-
 
     //sets the variables in the budgetInfo object
     var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
         budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
     };
 
-    // this is my solution to the category picker. In the final version it will involve replacing the input section with a dropdown or scroll menu, like the one in the password generator, that includes our bategories.
-    //it will likely make the funciton i wrote to take user input for categoires unecessary
-    // $(".dropdown-item").on("click", function (event) {
-    //     if ($(this).attr("id") === "food") {
-    //         // $("#food").addClass("is-active");
-    //         budgetInfo.categories.catFood.isTracked = true;
-    //         console.log("catFood is being tracked " + budgetInfo.categories.catFood.isTracked);
-    //     };
-
-    // });
-
     // listens for any changes to a element with the checkbox class, determines the value of the checkbox input and if it is checked or unchecked, and passes those values to the checkboxChecker function
     $(".checkbox").change(function () {
         var whichCheckboxAreYou = $(this).val();
         var isTrackedBool = $(this).prop("checked");
         checkboxChecker(whichCheckboxAreYou, isTrackedBool);
-    })
+    });
     // sets value of trackingPercents based on button click and adjusts display of input elements
     $("#yes").on("click", function () {
         budgetInfo.trackingPercents = true;
         $("#yesNoButtons").toggle();
-        $("#userInputDollars").toggle();
-        $("#radioButtons").toggle();
+        $("#percentageAllocator").toggle();
+        allocationToggler();
+        $("#percentageAllocatorButton").toggle();
+        $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
     });
     // sets value of trackingPercents based on button click and adjusts display of input elements
     $("#no").on("click", function () {
         budgetInfo.trackingPercents = false;
         $("#yesNoButtons").toggle();
         $("#userInputDollars").toggle();
-        $("#radioButtons").toggle();
+        radioToggler();
+        $("#submit").toggle();
+        $("#prompt").html("<h2>No problem! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
     });
 
-    //when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
+    // new button for allocating percents, only displayed if user selects "yes" when asked if they want to track percents
+    $("#percentageAllocatorButton").on("click", function () {
+        // set local variable percentTotal to the total amount entered in the percentage allocator fields, each input defaults to 0
+        var percentTotal = (parseInt($("#catFoodInput").val(), 10) + parseInt($("#catClothingInput").val(), 10) + parseInt($("#catEntertainmentInput").val(), 10) + parseInt($("#catSavingsInput").val(), 10) + parseInt($("#catTransportationInput").val(), 10) + parseInt($("#catOtherInput").val(), 10));
+        // if the percents total more than 100, display error message and return
+        if (percentTotal > 100) {
+            $("#prompt").html("<h2>Please ensure total equals 100%</h2>");
+            console.log(percentTotal);
+            return;
+        } else {
+            $("#percentageAllocator").toggle();
+            $("#submit").toggle();
+            $("#percentageAllocatorButton").toggle();
+            radioToggler();
+            $("#userInputDollars").toggle();
+            $("#prompt").html("<h2>Great! Let's get to tracking your budget. What'd you buy and how much did you spend?</h2>");
+            // converts entered values to integers and sets the allocated percentages in the budgetInfo object. since default values are set to 0, when we only display categories the user has selected to track this functionality should remain intact
+            budgetInfo.categories.catFood.percentage = parseInt($("#catFoodInput").val(), 10);
+            budgetInfo.categories.catClothing.percentage = parseInt($("#catClothingInput").val(), 10);
+            budgetInfo.categories.catEntertainment.percentage = parseInt($("#catEntertainmentInput").val(), 10);
+            budgetInfo.categories.catSavings.percentage = parseInt($("#catSavingsInput").val(), 10);
+            budgetInfo.categories.catTransportation.percentage = parseInt($("#catTransportationInput").val(), 10);
+            budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
+        }
+        setBudgetInfoToStorage();
+    });
+
+    // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
         if (budgetInfo.incomeSubmitted === false) {
-            //just in case, convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
+            // convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
             budgetInfo.spendingMoney = parseInt($("#userInputDollars").val(), 10);
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
@@ -181,6 +294,7 @@ $(document).ready(function () {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#yesNoButtons").toggle();
+            $("#submit").toggle();
             $("#prompt").html("<h2>Do you want to enable more robust budget tracking and allocate percentages to each category?</h2>");
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true) {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
@@ -197,30 +311,35 @@ $(document).ready(function () {
             } else if ($("#radioOther").prop("checked") == true) {
                 var stageThreeCat = "Other"
             };
-            var stageThreeCost = $("#userInputDollars").val();
+            var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             // defineCat();
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
             console.log("food? " + $("radioFood").prop("checked"));
+            setBudgetInfoToStorage();
         }
     });
 
-    //TODO:
-    // if tracking percentages, need to display categories they've selected with percentages that automatically add up to 100% and also display the $ amount based on the percentage selected and then update budgetItems object with the percentages set by user
-    // Update Outputter function to check for "trackingPercentages" variable and adjust output
-    //If trackingPercents = true update Output with category, dollarAmount based on assigned percentage for that category, and remaining total spendingMoney
-
     // END OF PAGELOAD FUNCTION
+
+   // SHOULD BE FIRST -- 
+   // this function reads the BudgetInfo object from local storage 
+   
+   getBudgetInfoFromStorage();
+    
+/*     USED FOR TESTING - MAY BE NEEDED AGAIN 
+
     budgetInfo.spendingMoney = 5000;
- 
-    budgetInfo.budgetItems.push(["Food", 100]);
-    budgetInfo.budgetItems.push(["Savings", 200]);
-    budgetInfo.budgetItems.push([ "Other", 300]);
 
-    // SHOULD BE AT END 
-    setBudgetItemFromStorage();
+    addBudgetItem("Food", 100);
+    addBudgetItem("Savings", 200);
+    addBudgetItem("Other", 300); 
+    
+*/
 
-    // SHOULD BE FIRST 
-    getBudgetItemFromStorage();
+// SHOULD BE AT END 
+// setBudgetInfoToStorage();
+
+
 
 });
