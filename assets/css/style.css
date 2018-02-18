@@ -1,7 +1,4 @@
-/* testing link with background color */
-
 body {
-    /* background-color: rgba(200, 128, 128, 1); */
     background-color: whiteSmoke;
 }
 
@@ -19,15 +16,32 @@ h1 {
     display: none;
 }
 
-#radioButtons {
+.radioB, .inputP{
     display: none;
 }
 
 #yesNoButtons {
     display: none;
-    margin: 50px;
-    border: 1px solid green;
-    align-items: center;
+    margin-top: 50px;
+    margin-left: 300px;
+    width: 400px;
+    padding-left: 75px;
+    /* padding-right: 10px; */
+    padding-top: 25px;
+    padding-bottom: 20px;
+    background-color: MediumAquaMarine;
+}
+
+#yes {
+  border: 1px solid white;
+  height: 80px;
+  width: 120px;
+}
+
+#no {
+  border: 1px solid white;
+  height: 80px;
+  width: 120px;
 }
 
 .field {
@@ -41,9 +55,10 @@ h1 {
 }
 
 #submit {
-    height: 150px;
+    height: 80px;
     width: 200px;
-    margin-right: 30px;
+    margin-left: 300px;
+
 }
 
 #categoryCheckbox {

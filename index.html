@@ -64,55 +64,63 @@
     </div>
     </fieldset>
     <!-- raido button set to be hidden until stage 3 -->
-    <div id="radioButtons" class="animated fadeIn">
-        <input type="radio" class="radioB" id="radioFood" name="category" value="catFood">
-        <label for="radioFood">Food</label>
+    <div id="radioButtons">
+        <input type="radio" class="radioB foodR animated fadeIn" id="radioFood" name="category" value="catFood">
+        <label for="radioFood" class="radioB foodR">Food</label>
 
-        <input type="radio" class="radioB" id="radioClothing" name="category" value="catClothing">
-        <label for="radioClothing">Clothing</label>
+        <input type="radio" class="radioB clothingR" id="radioClothing" name="category" value="catClothing">
+        <label for="radioClothing" class="radioB clothingR">Clothing</label>
 
-        <input type="radio" class="radioB" id="radioEntertainment" name="category" value="catEntertainment">
-        <label for="radioEntertainment">Entertainment</label>
+        <input type="radio" class="radioB entertainmentR" id="radioEntertainment" name="category" value="catEntertainment">
+        <label for="radioEntertainment" class="radioB entertainmentR">Entertainment</label>
 
-        <input type="radio" class="radioB" id="radioSavings" name="category" value="catSavings">
-        <label for="raidoSavings">Savings</label>
+        <input type="radio" class="radioB savingsR" id="radioSavings" name="category" value="catSavings">
+        <label for="raidoSavings" class="radioB savingsR">Savings</label>
 
-        <input type="radio" class="radioB" id="radioTransportation" name="category" value="catTransportation">
-        <label for="radioTransportation">Transportation</label>
+        <input type="radio" class="radioB transportationR" id="radioTransportation" name="category" value="catTransportation">
+        <label for="radioTransportation" class="radioB transportationR">Transportation</label>
 
-        <input type="radio" class="radioB" id="radioOther" name="category" value="catOther">
-        <label for="radioOther">Other</label>
+        <input type="radio" class="radioB otherR" id="radioOther" name="category" value="catOther">
+        <label for="radioOther" class="radioB otherR">Other</label>
     </div>
     <!-- buttons that begin hidden, and get revealed when the user is asked about tracking category percents -->
-    <div id="yesNoButtons" class="buttons">
-        <span id="yes" value="yes" class="button is-success">Yes</span>
-        <span id="no" value="no" class="button is-danger">No</span>
+    <div class="block">
+        <div class="columns">
+            <div class="column is-6">
+
+    <div id="yesNoButtons" class="buttons animated zoomInDown">
+        <span id="yes" value="yes" class="button is-success is-inverted is-outlined">Yes</span>
+        <span id="no" value="no" class="button is-danger is-inverted is-outlined">No</span>
     </div>
+
+    </div>
+    </div>
+
     <!-- User percentage allocation interface  -->
     <fieldset id="percentageAllocator">
         <div>
-            <label id="catFoodLabel" for="catFood">Food</label>
-            <input id="catFoodInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catFoodLabel" for="catFood" class="inputP foodP">Food</label>
+            <input id="catFoodInput" type="text" class="inputP foodP" placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
         <div>
-            <label id="catClothingLabel" for="catClothing">Clothing</label>
-            <input id="catClothingInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catClothingLabel" for="catClothing" class="inputP clothingP">Clothing</label>
+            <input id="catClothingInput" type="text"class="inputP clothingP" placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
         <div>
-            <label id="catEntertainmentLabel" for="catEntertainment">Entertainment</label>
-            <input id="catEntertainmentInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catEntertainmentLabel" for="catEntertainment" class="inputP entertainmentP">Entertainment</label>
+            <input id="catEntertainmentInput" type="text" class="inputP entertainmentP" placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
         <div>
-            <label id="catSavingsLabel" for="catSavings">Savings</label>
-            <input id="catSavingsInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catSavingsLabel" for="catSavings" class="inputP savingsP">Savings</label>
+            <input id="catSavingsInput" type="text" class="inputP savingsP"placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
         <div>
-            <label id="catTransportationLabel" for="catTransportation">Transportation</label>
-            <input id="catTransportationInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catTransportationLabel" for="catTransportation" class="inputP transportationP">Transportation</label>
+            <input id="catTransportationInput" type="text" class="inputP transportationP" placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
         <div>
-            <label id="catOtherLabel" for="catOther">Other</label>
-            <input id="catOtherInput" type="text" placeholder="%" max="100" maxlength="2" size="2">
+            <label id="catOtherLabel" for="catOther" class="inputP otherP">Other</label>
+            <input id="catOtherInput" type="text" class="inputP otherP" placeholder="%" max="100" maxlength="2" size="2" value="0">
         </div>
     </fieldset>
     <div class="column is-2">
@@ -127,7 +135,9 @@
                     <div class="control">
                         <input id="userInputDollars" class="input animated zoomInDown" type="number" step=0.01 placeholder="$ Dollar Amount $">
                     </div>
-                    <p class="help">Type in above</p>
+                    <h3>
+                        <!-- <p id="additionalInfo">Type in above</p> -->
+                    </h3>
                 </div>
             </div>
           </div>
