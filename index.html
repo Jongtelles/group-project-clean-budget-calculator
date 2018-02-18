@@ -87,13 +87,6 @@
             <label for="radioOther" class="radioB otherR">Other</label>
         </div>
     </div>
-    <!-- buttons that begin hidden, and get revealed when the user is asked about tracking category percents -->
-    <div class="container">
-        <div id="yesNoButtons" class="buttons animated zoomInDown">
-            <span id="yes" value="yes" class="button is-success is-inverted is-outlined">Yes</span>
-            <span id="no" value="no" class="button is-danger is-inverted is-outlined">No</span>
-        </div>
-    </div>
 
     <!-- User percentage allocation interface  -->
     <div class="container">
@@ -141,7 +134,7 @@
                         </div>
                     </div>
                     <h3>
-                        <p id="additionalInfo">Type in above</p>
+                        <span id="additionalInfo"></span>
                     </h3>
                 </div>
             </div>
@@ -163,6 +156,7 @@
         <!-- <input id="userInputDollars" type="number"> -->
         <!-- <button id="submit" type="submit">Submit</button> -->
         <div class="container">
+            <div id="totalSpent"></div>
             <div id="output"></div>
         </div>
 

@@ -90,7 +90,6 @@ $(document).ready(function () {
             $(".otherP").toggle()
         }
     }
-    // budgetInfo.budgetItems[budgetInfo.budgetItems.length - 1] (making note of the solution)
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
         budgetInfo.budgetItems.push({
@@ -111,29 +110,36 @@ $(document).ready(function () {
         } else if (cat === "Other") {
             budgetInfo.categories.catOther.totalSpent += dollars;
         }
+        budgetInfo.spendingMoney = (budgetInfo.spendingMoney - dollars);
         $("#prompt").html("<h2>Got it! Wanna add anything else?</h2>");
     };
-
+    // global variable
     var catTotalDollarAmount;
-    //function outputs basic user input to output field, not including percentage tracking
     var outPutter = function (appendCategory, appendCost) {
-        // based on category, set variable that will be displayed to user to totalSpent in that category
+        // based on category and cost of last budget item, output the following information: total $ spent in that category, what % of total allocation has been spent so far, and $ remaining for that category
         if (appendCategory === "Food") {
             catTotalDollarAmount = budgetInfo.categories.catFood.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Clothing") {
             catTotalDollarAmount = budgetInfo.categories.catClothing.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Entertainment") {
             catTotalDollarAmount = budgetInfo.categories.catEntertainment.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Savings") {
             catTotalDollarAmount = budgetInfo.categories.catSavings.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Transportation") {
             catTotalDollarAmount = budgetInfo.categories.catTransportation.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Other") {
             catTotalDollarAmount = budgetInfo.categories.catOther.totalSpent;
+            $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01)) * 100)) + " of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         }
+        // always display last added budget item's category and cost
+        $("#totalSpent").html("Total remaining: $" + budgetInfo.spendingMoney);
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
-        $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's %" + ((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01)) * 100) + " of your allocation for that category, you have $" + ((budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01) - catTotalDollarAmount)) + " remaining in that category."));
     };
 
     //sets the variables in the budgetInfo object
@@ -154,7 +160,7 @@ $(document).ready(function () {
         var percentTotal = (parseInt($("#catFoodInput").val(), 10) + parseInt($("#catClothingInput").val(), 10) + parseInt($("#catEntertainmentInput").val(), 10) + parseInt($("#catSavingsInput").val(), 10) + parseInt($("#catTransportationInput").val(), 10) + parseInt($("#catOtherInput").val(), 10));
         // if the percents total more than 100, display error message and return
         if (percentTotal != 100) {
-            $("#prompt").html("<h2>Please ensure total equals 100%</h2>");
+            $("#prompt").html("<h2>Please ensure total allocation equals 100%</h2>");
             console.log(percentTotal);
             return;
         } else {
@@ -174,7 +180,6 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
         }
     });
-
     // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
         if (budgetInfo.incomeSubmitted === false) {
@@ -183,12 +188,14 @@ $(document).ready(function () {
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
+            $("#totalSpent").html("Total remaining: $" + budgetInfo.spendingMoney);
             $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
             //this does not call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#submit").toggle();
+            allocationToggler();
             $("#percentageAllocator").toggle();
             $("#percentageAllocatorButton").toggle();
             $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
@@ -208,12 +215,10 @@ $(document).ready(function () {
                 var stageThreeCat = "Other"
             };
             var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
-            // defineCat();
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
             console.log("food? " + $("radioFood").prop("checked"));
         }
     });
-
     // END OF PAGELOAD FUNCTION
 });

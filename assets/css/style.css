@@ -7,39 +7,18 @@ h1 {
 }
 
 #prompt {
-  margin-left: 30px;
-  margin-top: 80px;
-  font-size: 40px;
+    margin-left: 30px;
+    margin-top: 80px;
+    font-size: 40px;
 }
 
 #categoryCheckbox {
     display: none;
 }
 
-.radioB, .inputP{
+.radioB,
+.inputP {
     display: none;
-}
-
-#yesNoButtons {
-    display: none;
-    margin-top: 50px;
-    width: 400px;
-    padding-left: 75px;
-    padding-top: 25px;
-    padding-bottom: 20px;
-    background-color: MediumAquaMarine;
-}
-
-#yes {
-  border: 1px solid white;
-  height: 80px;
-  width: 120px;
-}
-
-#no {
-  border: 1px solid white;
-  height: 80px;
-  width: 120px;
 }
 
 .field {
@@ -70,43 +49,44 @@ h1 {
 }
 
 .checkbox {
-  height: 30px;
-  width: 30px;
-  font-size: 20px;
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
 }
 
 #radioButtons {
-  margin: 10px;
-  border: 1px solid MediumAquaMarine;
-  font-size: 20px;
-  color: white;
-  background-color: MediumAquaMarine;
+    margin: 10px;
+    border: 1px solid MediumAquaMarine;
+    font-size: 20px;
+    color: white;
+    background-color: MediumAquaMarine;
 }
 
 #radioFood {
-  margin: 15px;
-  margin-left: 30px;
+    margin: 15px;
+    margin-left: 30px;
 }
 
 #radioClothing {
-  margin: 15px;
+    margin: 15px;
 }
 
 #radioEntertainment {
-  margin: 15px;
+    margin: 15px;
 }
 
 #radioSavings {
-  margin: 15px;
+    margin: 15px;
 }
 
 #radioTransportation {
-  margin: 15px;
+    margin: 15px;
 }
 
 #radioOther {
-  margin: 15px;
+    margin: 15px;
 }
+
 #percentageAllocator {
     display: none;
     background-color: MediumAquaMarine;
@@ -119,41 +99,39 @@ h1 {
 }
 
 #catFoodInput {
-  float: right;
-  height: 30px;
-  width: 30px;
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #catClothingInput {
-  float: right;
-  height: 30px;
-  width: 30px;
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #catEntertainmentInput {
-  float: right;
-  height: 30px;
-  width: 30px;
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #catSavingsInput {
-  float: right;
-  height: 30px;
-  width: 30px;
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #catTransportationInput {
-  float: right;
-  height: 30px;
-  width: 30px;
-
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #catOtherInput {
-  float: right;
-  height: 30px;
-  width: 30px;
-
+    float: right;
+    height: 30px;
+    width: 30px;
 }
 
 #percentageAllocatorButton {
@@ -164,15 +142,16 @@ h1 {
     margin: 10px;
 }
 
-#output {
-  color: white;
-  background-color: MediumAquaMarine;
-  font-size: 30px;
-  padding-left: 15px;
+#output,
+#totalSpent {
+    color: white;
+    background-color: MediumAquaMarine;
+    font-size: 30px;
+    padding-left: 15px;
 }
 
 .footer {
-  background-color: grey;
-  margin-top: 300px;
-  height: 1px;
+    background-color: grey;
+    margin-top: 300px;
+    height: 1px;
 }
