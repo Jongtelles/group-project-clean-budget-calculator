@@ -157,9 +157,6 @@ $(document).ready(function () {
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
             $(".entertainmentR").toggle()
         }
-        // if (budgetInfo.categories.catSavings.isTracked == true) {
-        //     $(".savingsR").toggle()
-        // }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
             $(".transportationR").toggle()
         }
@@ -269,6 +266,8 @@ $(document).ready(function () {
         var reset = confirm("Are you sure? This will reset all stored data.");
         if (reset == true) {
             localStorage.clear();
+            budgetInfo.spendingMoney = 0;
+            budgetInfo.budgetItems = [];
             budgetInfo.incomeSubmitted = false;
             budgetInfo.categoriesSelected = false;
             budgetInfo.trackingPercents = false;
@@ -342,11 +341,7 @@ $(document).ready(function () {
                 var stageThreeCat = "Clothing"
             } else if ($("#radioEntertainment").prop("checked") == true) {
                 var stageThreeCat = "Entertainment"
-            }
-            // else if ($("#radioSavings").prop("checked") == true) {
-            //     var stageThreeCat = "Savings"
-            // }
-            else if ($("#radioTransportation").prop("checked") == true) {
+            } else if ($("#radioTransportation").prop("checked") == true) {
                 var stageThreeCat = "Transportation"
             } else if ($("#radioOther").prop("checked") == true) {
                 var stageThreeCat = "Other"
