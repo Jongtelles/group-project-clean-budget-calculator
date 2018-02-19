@@ -146,6 +146,7 @@ $(document).ready(function () {
         
        // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ? 
     }
+
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
             $(".foodR").toggle()
@@ -309,6 +310,7 @@ $(document).ready(function () {
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
             // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
         }
+
         setBudgetInfoToStorage();
     });
     // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
@@ -354,6 +356,7 @@ $(document).ready(function () {
         }
         setBudgetInfoToStorage();
     });
+
 // END OF PAGELOAD FUNCTION
   // SHOULD BE FIRST -- 
    // this function reads the BudgetInfo object from local storage 
