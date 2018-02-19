@@ -62,6 +62,71 @@ $(document).ready(function () {
         //budgetInfo object end
     };
 
+     // pie chart
+     var ctx = $("#myChart");   
+     var myChart = new Chart(ctx,{
+     type: 'pie',
+     data:{ 
+         // categoies will be pushed to the array below
+         labels: [],
+         datasets:[{
+             // percent allocations will be pushed to the array below
+             data: [],
+             backgroundColor: [
+                 'rgba(255, 99, 132, 0.2)',
+                 'rgba(54, 162, 235, 0.2)',
+                 'rgba(255, 206, 86, 0.2)',
+                 'rgba(75, 192, 192, 0.2)',
+                 'rgba(153, 102, 255, 0.2)',
+                 'rgba(255, 159, 64, 0.2)',
+             ],
+             borderWidth: 1,
+         }],
+     },
+     options: {
+         responsive: true,
+     }
+     }); // end of pie chart
+       
+     var pieChartPush= function (tooltip, allocation){
+     
+         myChart.data.datasets[0].data.push(allocation);
+         myChart.data.labels.push(tooltip);
+         myChart.update();
+         console.log(budgetInfo.spendingMoney+ " - Spending money");
+         console.log(budgetInfo.categories.catFood.percentage+ " - food % allocation");
+         console.log(myChart.data.datasets[0].data+ " - data pushed to array");
+         console.log( myChart.data.labels+ " - label pushed to array");
+     };
+     
+     var pieChartIf = function(){
+         var foodPie = budgetInfo.spendingMoney*(budgetInfo.categories.catFood.percentage*0.01);
+         var clothingPie = budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01);
+         var entertainmentPie = budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01);
+         var savingsPie = budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01);
+         var trnsportationPie = budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01);
+         var ohterPie = budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01);
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Food", foodPie);
+         };
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Clothing", clothingPie);
+         };
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Entertainment", entertainmentPie);
+         };
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Savings", savingsPie);
+         };
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Transportation", trnsportationPie);
+         };
+         if(budgetInfo.categories.catFood.percentage>0){
+             pieChartPush("Other", ohterPie);
+         };
+     };
+ 
+
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
 
         var bArr = budgetInfo.budgetItems;
@@ -308,7 +373,7 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
             // set the "totalSpent" of the Savings category based on allocated percentage
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
-            // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
+             pieChartIf();
         }
 
         setBudgetInfoToStorage();
