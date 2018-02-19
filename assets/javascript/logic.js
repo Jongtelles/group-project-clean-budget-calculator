@@ -368,6 +368,12 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.isTracked = false;
             budgetInfo.categories.catOther.totalSpent = 0;
             budgetInfo.categories.catOther.percentage = 0;
+            $("#catSavingsInput").val("0");
+            $("#catFoodInput").val("0");
+            $("#catClothingInput").val("0");
+            $("#catEntertainmentInput").val("0");
+            $("#catTransportationInput").val("0");
+            $("#catOtherInput").val("0");
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
