@@ -134,13 +134,13 @@ $(document).ready(function () {
         /*   for (var i = 0; i < bArr.length; i++) {
             outPutter(bArr[i][0], bArr[i][1]);
         } */
-
+        // if user refreshed after submitting total spending money, display checkboxes
         if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false && budgetInfo.trackingPercents === false) {
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
             $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
         }
-
+        // if user refreshed after submitting total spending money and selecting categories to track, but before allocating percentages, display allocator with correct categories
         if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === false) {
             allocationToggler();
             $("#percentageAllocator").toggle();
@@ -149,7 +149,7 @@ $(document).ready(function () {
             $("#submit").toggle();
             $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
         }
-
+        // if user refreshed after submitting total spending money, selecting categories to track, and allocating percentages but before adding any budget items, display radio buttons based on categories previously selected
         if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
             radioToggler();
             $("#prompt").html("<h2>Welcome back! Buy something new?</h2>");
@@ -212,8 +212,6 @@ $(document).ready(function () {
         displaySavedBudgetInfo(true, true);
         // argument 1 - include a header, only for a table
         // arguemnt 2 - display in table format
-        //
-
 
     }
 
@@ -384,6 +382,8 @@ $(document).ready(function () {
             $("#catOtherConverted").empty();
             $("#submit").show();
             $("#userInputDollars").show();
+            $(".checkbox").prop("checked", false);
+            $(".radioB").prop("checked", false);
             $("#prompt").html("<h2>After fixed costs, how much do you have leftover to spend?</h2>");
         } else return;
     });
