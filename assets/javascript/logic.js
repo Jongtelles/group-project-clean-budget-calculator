@@ -62,67 +62,67 @@ $(document).ready(function () {
         //budgetInfo object end
     };
 
-     // pie chart
-     var ctx = $("#myChart");
-     var myChart = new Chart(ctx,{
-     type: 'pie',
-     data:{
-         // categoies will be pushed to the array below
-         labels: [],
-         datasets:[{
-             // percent allocations will be pushed to the array below
-             data: [],
-             backgroundColor: [
-                 'rgba(255, 99, 132, 0.8)',
-                 'rgba(54, 162, 235, 0.8)',
-                 'rgba(255, 206, 86, 0.8)',
-                 'rgba(144, 0, 32, 0.8)',
-                 'rgba(153, 102, 255, 0.8)',
-                 'rgba(255, 159, 64, 0.8)',
-             ],
-             borderWidth: 1,
-         }],
-     },
-     options: {
-         responsive: true,
-     }
-     }); // end of pie chart
+    // pie chart
+    var ctx = $("#myChart");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            // categoies will be pushed to the array below
+            labels: [],
+            datasets: [{
+                // percent allocations will be pushed to the array below
+                data: [],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(144, 0, 32, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                ],
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            responsive: true,
+        }
+    }); // end of pie chart
 
-     var pieChartPush= function (tooltip, allocation){
+    var pieChartPush = function (tooltip, allocation) {
 
-         myChart.data.datasets[0].data.push(allocation);
-         myChart.data.labels.push(tooltip);
-         myChart.update();
-         console.log(myChart.data.datasets[0].data+ " - data pushed to array");
-         console.log( myChart.data.labels+ " - label pushed to array");
-     };
+        myChart.data.datasets[0].data.push(allocation);
+        myChart.data.labels.push(tooltip);
+        myChart.update();
+        console.log(myChart.data.datasets[0].data + " - data pushed to array");
+        console.log(myChart.data.labels + " - label pushed to array");
+    };
 
-     var pieChartIf = function(){
-         var foodPie = Math.floor(budgetInfo.spendingMoney*(budgetInfo.categories.catFood.percentage*0.01));
-         var clothingPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01));
-         var entertainmentPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01));
-         var savingsPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
-         var trnsportationPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01));
-         var ohterPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01));
-         if(budgetInfo.categories.catFood.percentage > 0){
+    var pieChartIf = function () {
+        var foodPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01));
+        var clothingPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01));
+        var entertainmentPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01));
+        var savingsPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
+        var trnsportationPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01));
+        var otherPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01));
+        if (budgetInfo.categories.catFood.percentage > 0) {
             pieChartPush("Food", foodPie);
-         }
-        if(budgetInfo.categories.catClothing.percentage > 0){
+        }
+        if (budgetInfo.categories.catClothing.percentage > 0) {
             pieChartPush("Clothing", clothingPie);
-         };
-        if(budgetInfo.categories.catEntertainment.percentage > 0){
+        };
+        if (budgetInfo.categories.catEntertainment.percentage > 0) {
             pieChartPush("Entertainment", entertainmentPie);
-         };
-        if(budgetInfo.categories.catSavings.percentage > 0){
+        };
+        if (budgetInfo.categories.catSavings.percentage > 0) {
             pieChartPush("Savings", savingsPie);
-         };
-        if(budgetInfo.categories.catTransportation.percentage > 0){
+        };
+        if (budgetInfo.categories.catTransportation.percentage > 0) {
             pieChartPush("Transportation", trnsportationPie);
-         };
-        if(budgetInfo.categories.catOther.percentage > 0){
-            pieChartPush("Other", ohterPie);
-         };
-     };
+        };
+        if (budgetInfo.categories.catOther.percentage > 0) {
+            pieChartPush("Other", otherPie);
+        };
+    };
 
 
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
@@ -134,6 +134,26 @@ $(document).ready(function () {
         /*   for (var i = 0; i < bArr.length; i++) {
             outPutter(bArr[i][0], bArr[i][1]);
         } */
+
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false && budgetInfo.trackingPercents === false) {
+            $("#categoryCheckbox").toggle();
+            $("#userInputDollars").toggle();
+            $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
+        }
+
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === false) {
+            allocationToggler();
+            $("#percentageAllocator").toggle();
+            $("#percentageAllocatorButton").toggle();
+            $("#userInputDollars").toggle();
+            $("#submit").toggle();
+            $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
+        }
+
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
+            radioToggler();
+            $("#prompt").html("<h2>Welcome back! Buy something new?</h2>");
+        }
 
         // we have budget items
         if (bArr.length > 0) {
@@ -321,7 +341,7 @@ $(document).ready(function () {
         }
     });
 
-    // big ugly reset that clears local storage and sets all variables of the
+    // big ugly reset that clears local storage, sets all variables of the budgetInfo object to default, and resets DOM to initial display
     $("#reset").on("click", function () {
         var reset = confirm("Are you sure? This will reset ALL stored data.");
         if (reset == true) {
@@ -347,14 +367,21 @@ $(document).ready(function () {
             budgetInfo.categories.catTransportation.isTracked = false;
             budgetInfo.categories.catTransportation.totalSpent = 0;
             budgetInfo.categories.catTransportation.percentage = 0;
-            budgetInfo.categories.catOther.isTracked = true;
+            budgetInfo.categories.catOther.isTracked = false;
             budgetInfo.categories.catOther.totalSpent = 0;
             budgetInfo.categories.catOther.percentage = 0;
             $("#output").empty();
+            $("#additionalInfo").empty();
             $(".radioB").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
             $("#percentageAllocator").hide();
+            $("#catSavingsConverted").empty();
+            $("#catFoodConverted").empty();
+            $("#catClothingConverted").empty();
+            $("#catEntertainmentConverted").empty();
+            $("#catTransportationConverted").empty();
+            $("#catOtherConverted").empty();
             $("#submit").show();
             $("#userInputDollars").show();
             $("#prompt").html("<h2>After fixed costs, how much do you have leftover to spend?</h2>");
@@ -415,7 +442,7 @@ $(document).ready(function () {
             $("#userInputDollars").toggle();
             $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
             //this does not call a function because all of it's functionality happens within the ".change" function that calls checkboxchecker
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false && $('.checkbox').is(':checked')) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#submit").toggle();
@@ -423,7 +450,7 @@ $(document).ready(function () {
             $("#percentageAllocator").toggle();
             $("#percentageAllocatorButton").toggle();
             $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true && $("#userInputDollars").val() != "") {
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true && $("#userInputDollars").val() != "" && $('.radioB').is(':checked')) {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
             if ($("#radioFood").prop("checked") == true) {
                 var stageThreeCat = "Food"
