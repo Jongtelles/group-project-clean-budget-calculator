@@ -146,6 +146,7 @@ h1 {
 #spendingMoney,
 #savings {
     color: white;
+    border: 1px solid orange;
     background-color: MediumAquaMarine;
     font-size: 30px;
     padding-left: 15px;

@@ -67,8 +67,8 @@
     </fieldset>
     <!-- raido button set to be hidden until stage 3 -->
     <div class="container">
-        <div id="radioButtons">
-            <input type="radio" class="radioB foodR animated fadeIn" id="radioFood" name="category" value="catFood">
+        <div id="radioButtons" class="animated infinite bounce">
+            <input type="radio" class="radioB foodR" id="radioFood" name="category" value="catFood">
             <label for="radioFood" class="radioB foodR">Food</label>
 
             <input type="radio" class="radioB clothingR" id="radioClothing" name="category" value="catClothing">
@@ -90,7 +90,7 @@
 
     <!-- User percentage allocation interface  -->
     <div class="container">
-        <fieldset id="percentageAllocator">
+        <fieldset id="percentageAllocator" class="animated bounceInDown">
             <div>
                 <label id="catSavingsLabel" for="catSavings" class="inputP savingsP">Savings (used to determine how much you'll save for next month): </label>
                 <input id="catSavingsInput" type="text" class="inputP savingsP" placeholder="%" max="100" maxlength="3" size="3" value="0">
@@ -153,7 +153,7 @@
             <div class="container">
                 <div class="column is-2">
                     <div class="container">
-                        <a id="submit" class="button is-primary is-outlined is-auto animated zoomInDown">Submit</a>
+                        <a id="submit" class="button is-primary is-outlined is-auto is-animated zoomInDown">Submit</a>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@
         <!-- <button id="submit" type="submit">Submit</button> -->
         <div class="container">
             <!-- <span id="spendingMoney"></span> -->
-            <div id="output"></div>
+            <div id="output" class="is animated fadeInLeft"></div>
         </div>
 
 
