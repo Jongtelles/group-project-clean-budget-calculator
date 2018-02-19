@@ -1,3 +1,14 @@
+/*
+   GWU 1st Group Project - good & simple budget tracker
+
+   Jon Telles, Marcus Hilaire, Nate Schubert, Al Curry 
+
+   February 20, 2018
+
+    logic.js - main javascript logic file invoked by index.html
+
+*/
+
 // On page load
 $(document).ready(function () {
     // budgetInfo object contains all necessary variables
@@ -50,6 +61,92 @@ $(document).ready(function () {
         },
         //budgetInfo object end
     };
+
+    var displaySavedBudgetInfo = function (inclHdr, makeTable) {
+
+        var bArr = budgetInfo.budgetItems;
+        var html = "";
+        console.log("dsbi : " + bArr.length);
+
+        // maybe a simple table looks better than what existing outPutter() does  ?    AC 02/17/2018
+        /*   for (var i = 0; i < bArr.length; i++) {
+            outPutter(bArr[i][0], bArr[i][1]);
+        } */
+
+        // we have budget items 
+    if (bArr.length > 0) {
+            
+        if (!makeTable) {
+
+            for (var i = 0; i < bArr.length; i++) {
+
+                $("#output").append("Category: " + bArr[i].category + " ");
+                $("#output").append("Cost: " + "$" + bArr[i].dollarAmount + "<br\>");
+
+                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            }
+
+        } else {
+
+            // write the table header to html string 
+            // note with bulma class "table", which presents well but 
+            // seems to default to white background - may need modification 
+            html = '<table class="table">'
+            if (inclHdr) {
+                html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
+            }
+            html += '<tbody> ';
+
+            for (var i = 0; i < bArr.length; i++) {
+
+                // append each row of the table 
+                html += '<tr><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
+                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            }
+
+            // end the table 
+            html += "</tbody></table>";
+
+            // and append the html to output div -- jquery append closes tags 
+            // ergo multiple cals to append do not work correctly in this scenario 
+            $("#output").append(html);
+        }
+    }
+    }    
+
+    // Get and Set local storage functions 
+    var getBudgetInfoFromStorage = function () {
+
+        var budgetObject = localStorage.getItem('budObject');
+        //console.log(budetObject.spendingMoney);
+        if (budgetObject != null) {
+            budgetInfo = JSON.parse(budgetObject);
+            console.log("spend : " + budgetInfo.spendingMoney);
+        }
+
+        // where & which fields from a saved budgetInfo object need to be displayed ? 
+        // that could go here, or call a function here to do it
+        displaySavedBudgetInfo(true, true);
+        // argument 1 - include a header, only for a table
+        // arguemnt 2 - display in table format 
+        //
+        
+
+    }
+
+    var setBudgetInfoToStorage = function () {
+
+        // clear ? 
+        // localStorage.clear()
+
+        // clears all local storage, not just our "budObject"  -- this way, without clear((),// should just  
+        // replace, which should be adequate 
+
+        localStorage.setItem('budObject', JSON.stringify(budgetInfo));
+        
+       // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ? 
+    }
+
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
             $(".foodR").toggle()
@@ -113,6 +210,7 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.totalSpent += dollars;
         }
         $("#prompt").html("<h2>Got it! Wanna add anything else?</h2>");
+        setBudgetInfoToStorage();
     };
     // global variable
     var catTotalDollarAmount;
@@ -212,6 +310,8 @@ $(document).ready(function () {
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
             // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
         }
+
+        setBudgetInfoToStorage();
     });
     // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
@@ -254,6 +354,27 @@ $(document).ready(function () {
             outPutter(stageThreeCat, stageThreeCost);
             console.log("food? " + $("radioFood").prop("checked"));
         }
+        setBudgetInfoToStorage();
     });
-    // END OF PAGELOAD FUNCTION
+
+// END OF PAGELOAD FUNCTION
+  // SHOULD BE FIRST -- 
+   // this function reads the BudgetInfo object from local storage 
+   
+   getBudgetInfoFromStorage();
+    
+/*   USED FOR TESTING - MAY BE NEEDED AGAIN  
+ 
+    budgetInfo.spendingMoney = 5000;
+    addBudgetItem("Food", 10);
+    addBudgetItem("Savings", 2000);
+    addBudgetItem("Other", 300); 
+     */
+
+
+// this may need to be called here - or other places near 
+// the end of various functions - for now there are 3 calls
+// interspersed above, testing to finalize    
+// setBudgetInfoToStorage();
+
 });
