@@ -38,6 +38,10 @@
     <!-- <div class="column is-10"> -->
     <div class="container">
         <fieldset id="categoryCheckbox" class="animated bounceInDown">
+            <!-- <div>
+                <input class="checkbox" type="checkbox" id="catSavings" name="category" value="catSavings">
+                <label for="catSavings">Savings (will allow you to select a percentage of your total to save)</label>
+            </div> -->
             <div>
                 <input class="checkbox" type="checkbox" id="catFood" name="category" value="catFood">
                 <label for="catFood">Food</label>
@@ -49,10 +53,6 @@
             <div>
                 <input class="checkbox" type="checkbox" id="catEntertainment" name="category" value="catEntertainment">
                 <label for="catEntertainment">Entertainment</label>
-            </div>
-            <div>
-                <input class="checkbox" type="checkbox" id="catSavings" name="category" value="catSavings">
-                <label for="catSavings">Savings</label>
             </div>
             <div>
                 <input class="checkbox" type="checkbox" id="catTransportation" name="category" value="catTransportation">
@@ -77,8 +77,8 @@
             <input type="radio" class="radioB entertainmentR" id="radioEntertainment" name="category" value="catEntertainment">
             <label for="radioEntertainment" class="radioB entertainmentR">Entertainment</label>
 
-            <input type="radio" class="radioB savingsR" id="radioSavings" name="category" value="catSavings">
-            <label for="raidoSavings" class="radioB savingsR">Savings</label>
+            <!-- <input type="radio" class="radioB savingsR" id="radioSavings" name="category" value="catSavings">
+            <label for="raidoSavings" class="radioB savingsR">Savings</label> -->
 
             <input type="radio" class="radioB transportationR" id="radioTransportation" name="category" value="catTransportation">
             <label for="radioTransportation" class="radioB transportationR">Transportation</label>
@@ -92,30 +92,36 @@
     <div class="container">
         <fieldset id="percentageAllocator">
             <div>
-                <label id="catFoodLabel" for="catFood" class="inputP foodP">Food</label>
+                <label id="catSavingsLabel" for="catSavings" class="inputP savingsP">Savings (used to determine how much you'll save for next month): </label>
+                <input id="catSavingsInput" type="text" class="inputP savingsP" placeholder="%" max="100" maxlength="3" size="3" value="0">
+                <span id="catSavingsConverted"></span>
+            </div>
+            <div>
+                <label id="catFoodLabel" for="catFood" class="inputP foodP">Food: </label>
                 <input id="catFoodInput" type="text" class="inputP foodP" placeholder="%" max="100" maxlength="3" size="3" value="0">
+                <span id="catFoodConverted"></span>
             </div>
             <div>
-                <label id="catClothingLabel" for="catClothing" class="inputP clothingP">Clothing</label>
+                <label id="catClothingLabel" for="catClothing" class="inputP clothingP">Clothing: </label>
                 <input id="catClothingInput" type="text" class="inputP clothingP" placeholder="%" max="100" maxlength="3" size="3" value="0">
+                <span id="catClothingConverted"></span>
             </div>
             <div>
-                <label id="catEntertainmentLabel" for="catEntertainment" class="inputP entertainmentP">Entertainment</label>
+                <label id="catEntertainmentLabel" for="catEntertainment" class="inputP entertainmentP">Entertainment: </label>
                 <input id="catEntertainmentInput" type="text" class="inputP entertainmentP" placeholder="%" max="100" maxlength="3" size="3"
                     value="0">
+                <span id="catEntertainmentConverted"></span>
             </div>
             <div>
-                <label id="catSavingsLabel" for="catSavings" class="inputP savingsP">Savings</label>
-                <input id="catSavingsInput" type="text" class="inputP savingsP" placeholder="%" max="100" maxlength="3" size="3" value="0">
-            </div>
-            <div>
-                <label id="catTransportationLabel" for="catTransportation" class="inputP transportationP">Transportation</label>
+                <label id="catTransportationLabel" for="catTransportation" class="inputP transportationP">Transportation: </label>
                 <input id="catTransportationInput" type="text" class="inputP transportationP" placeholder="%" max="100" maxlength="3" size="3"
                     value="0">
+                <span id="catTransportationConverted"></span>
             </div>
             <div>
-                <label id="catOtherLabel" for="catOther" class="inputP otherP">Other</label>
+                <label id="catOtherLabel" for="catOther" class="inputP otherP">Other: </label>
                 <input id="catOtherInput" type="text" class="inputP otherP" placeholder="%" max="100" maxlength="3" size="3" value="0">
+                <span id="catOtherConverted"></span>
             </div>
         </fieldset>
     </div>
@@ -156,7 +162,7 @@
         <!-- <input id="userInputDollars" type="number"> -->
         <!-- <button id="submit" type="submit">Submit</button> -->
         <div class="container">
-            <div id="totalSpent"></div>
+            <!-- <span id="spendingMoney"></span> -->
             <div id="output"></div>
         </div>
 
