@@ -54,7 +54,7 @@ $(document).ready(function () {
             },
             catOther: {
                 name: "Other",
-                isTracked: false,
+                isTracked: true,
                 totalSpent: 0,
                 percentage: 0
             },
@@ -149,39 +149,39 @@ $(document).ready(function () {
 
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodR").toggle()
+            $(".foodR").toggle();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingR").toggle()
+            $(".clothingR").toggle();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentR").toggle()
+            $(".entertainmentR").toggle();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationR").toggle()
+            $(".transportationR").toggle();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherR").toggle()
+            $(".otherR").toggle();
         }
     };
     var allocationToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodP").toggle()
+            $(".foodP").toggle();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingP").toggle()
+            $(".clothingP").toggle();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentP").toggle()
+            $(".entertainmentP").toggle();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
-            $(".savingsP").toggle()
+            $(".savingsP").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationP").toggle()
+            $(".transportationP").toggle();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherP").toggle()
+            $(".otherP").toggle();
         }
     }
     //function that allows user to add items to the budget array based on category and dollar amount
@@ -230,10 +230,6 @@ $(document).ready(function () {
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
     };
 
-    //sets the variables in the budgetInfo object
-    var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
-        budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
-    };
     // listens to the inputs of each percentage allocater field, when user presses a key in each percentage allocater input fields, convert what they've typed to the correct $ amount and display it in the span for that category
     $(".inputP").keyup(function () {
         if ($(this).prop("id") === "catSavingsInput") {
@@ -262,20 +258,51 @@ $(document).ready(function () {
         }
     });
 
+    // big ugly reset that clears local storage and sets all variables of the
     $("#reset").on("click", function () {
-        var reset = confirm("Are you sure? This will reset all stored data.");
+        var reset = confirm("Are you sure? This will reset ALL stored data.");
         if (reset == true) {
             localStorage.clear();
+            catTotalDollarAmount = undefined;
             budgetInfo.spendingMoney = 0;
-            budgetInfo.budgetItems = [];
             budgetInfo.incomeSubmitted = false;
             budgetInfo.categoriesSelected = false;
             budgetInfo.trackingPercents = false;
+            budgetInfo.budgetItems = [];
+            budgetInfo.categories.catFood.isTracked = false;
+            budgetInfo.categories.catFood.totalSpent = 0;
+            budgetInfo.categories.catFood.percentage = 0;
+            budgetInfo.categories.catClothing.isTracked = false;
+            budgetInfo.categories.catClothing.totalSpent = 0;
+            budgetInfo.categories.catClothing.percentage = 0;
+            budgetInfo.categories.catEntertainment.isTracked = false;
+            budgetInfo.categories.catEntertainment.totalSpent = 0;
+            budgetInfo.categories.catEntertainment.percentage = 0;
+            budgetInfo.categories.catSavings.isTracked = true;
+            budgetInfo.categories.catSavings.totalSpent = 0;
+            budgetInfo.categories.catSavings.percentage = 0;
+            budgetInfo.categories.catTransportation.isTracked = false;
+            budgetInfo.categories.catTransportation.totalSpent = 0;
+            budgetInfo.categories.catTransportation.percentage = 0;
+            budgetInfo.categories.catOther.isTracked = true;
+            budgetInfo.categories.catOther.totalSpent = 0;
+            budgetInfo.categories.catOther.percentage = 0;
             $("#output").empty();
             $(".radioB").hide();
+            $("#categoryCheckbox").hide();
+            $("#percentageAllocatorButton").hide();
+            $("#percentageAllocator").hide();
+            $("#submit").show();
+            $("#userInputDollars").show();
             $("#prompt").html("<h2>After fixed costs, how much do you have leftover to spend?</h2>");
-        }
+        } else return;
     });
+
+    //sets the variables in the budgetInfo object
+    var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
+        budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
+    };
+
     // listens for any changes to a element with the checkbox class, determines the value of the checkbox input and if it is checked or unchecked, and passes those values to the checkboxChecker function
     $(".checkbox").change(function () {
         var whichCheckboxAreYou = $(this).val();
@@ -309,22 +336,20 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
             // set the "totalSpent" of the Savings category based on allocated percentage
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
-            // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
         }
 
         setBudgetInfoToStorage();
     });
     // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
-        if (budgetInfo.incomeSubmitted === false) {
+        if (budgetInfo.incomeSubmitted === false && $("#userInputDollars").val() != "") {
             // convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
             budgetInfo.spendingMoney = parseInt($("#userInputDollars").val(), 10);
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
-            // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
             $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
-            //this does not call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker
+            //this does not call a function because all of it's functionality happens within the ".change" function that calls checkboxchecker
         } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
@@ -333,7 +358,7 @@ $(document).ready(function () {
             $("#percentageAllocator").toggle();
             $("#percentageAllocatorButton").toggle();
             $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true && $("#userInputDollars").val() != "") {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
             if ($("#radioFood").prop("checked") == true) {
                 var stageThreeCat = "Food"
