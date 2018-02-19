@@ -150,7 +150,10 @@ h1 {
     font-size: 30px;
     padding-left: 15px;
 }
-
+.pieBox{
+    float: right;
+    width: 50%;
+}
 .footer {
     background-color: grey;
     margin-top: 300px;
