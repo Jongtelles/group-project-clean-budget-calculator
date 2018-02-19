@@ -264,6 +264,14 @@ $(document).ready(function () {
         if (budgetInfo.categories.catOther.isTracked == true) {
             $(".otherP").toggle();
         }
+        console.log("toggled allocation called");
+        console.log(" food track? " + budgetInfo.categories.catFood.isTracked);
+        console.log(" clothing track? " + budgetInfo.categories.catClothing.isTracked);
+        console.log(" Entertainment track? " + budgetInfo.categories.catEntertainment.isTracked);
+        console.log(" Savings track? " + budgetInfo.categories.catSavings.isTracked);
+        console.log(" Other track? " + budgetInfo.categories.catOther.isTracked);
+        console.log(" Transportation track? " + budgetInfo.categories.catTransportation.isTracked);        
+        ;
     }
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -368,18 +376,23 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.isTracked = false;
             budgetInfo.categories.catOther.totalSpent = 0;
             budgetInfo.categories.catOther.percentage = 0;
+            myChart.data.datasets[0].data = [];
+            myChart.data.labels = [];
+            console.log("there should be nothing in here: lables "+ myChart.data.labels);
+            console.log("there should be nothing in here: data "+ myChart.data.datasets[0].data);
             $("#catSavingsInput").val("0");
             $("#catFoodInput").val("0");
             $("#catClothingInput").val("0");
             $("#catEntertainmentInput").val("0");
             $("#catTransportationInput").val("0");
             $("#catOtherInput").val("0");
+            $("#userInputDollars").val("");            
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
-            $("#percentageAllocator").hide();
+            // $("#percentageAllocator").toggle();
             $("#catSavingsConverted").empty();
             $("#catFoodConverted").empty();
             $("#catClothingConverted").empty();
@@ -472,7 +485,6 @@ $(document).ready(function () {
             var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
-            console.log("food? " + $("radioFood").prop("checked"));
         }
         setBudgetInfoToStorage();
     });
