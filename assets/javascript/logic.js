@@ -100,12 +100,12 @@ $(document).ready(function () {
      };
      
      var pieChartIf = function(){
-         var foodPie = budgetInfo.spendingMoney*(budgetInfo.categories.catFood.percentage*0.01);
-         var clothingPie = budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01);
-         var entertainmentPie = budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01);
-         var savingsPie = budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01);
-         var trnsportationPie = budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01);
-         var ohterPie = budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01);
+         var foodPie = Math.floor(budgetInfo.spendingMoney*(budgetInfo.categories.catFood.percentage*0.01));
+         var clothingPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01));
+         var entertainmentPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01));
+         var savingsPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
+         var trnsportationPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01));
+         var ohterPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01));
          if(budgetInfo.categories.catFood.percentage > 0){
             pieChartPush("Food", foodPie);
          }
@@ -357,6 +357,7 @@ $(document).ready(function () {
             console.log(percentTotal);
             return;
         } else {
+            $("#userInputDollars").val("");
             budgetInfo.trackingPercents = true;
             $("#percentageAllocator").toggle();
             $("#submit").toggle();
