@@ -31,7 +31,8 @@ h1 {
     margin-top: 30px;
 }
 
-#submit {
+#submit,
+#reset {
     height: 80px;
     width: 200px;
 }
@@ -56,7 +57,6 @@ h1 {
 
 #radioButtons {
     margin: 10px;
-    border: 1px solid MediumAquaMarine;
     font-size: 20px;
     color: white;
     background-color: MediumAquaMarine;
@@ -89,8 +89,8 @@ h1 {
 
 #percentageAllocator {
     display: none;
-    background-color: MediumAquaMarine;
     color: white;
+    background-color: MediumAquaMarine;
     font-size: 20px;
     padding: 20px;
     margin-top: 30px;
@@ -137,21 +137,23 @@ h1 {
 #percentageAllocatorButton {
     display: none;
     /*these attributes do not display*/
-    height: 80px;
+    /* height: 80px;
     width: 200px;
-    margin: 10px;
+    margin: 10px; */
 }
 
 #output,
 #spendingMoney,
 #savings {
     color: white;
-    border: 1px solid orange;
     background-color: MediumAquaMarine;
     font-size: 30px;
     padding-left: 15px;
 }
-
+.pieBox{
+    float: right;
+    width: 50%;
+}
 .footer {
     background-color: grey;
     margin-top: 300px;

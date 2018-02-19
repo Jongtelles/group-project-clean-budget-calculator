@@ -1,7 +1,7 @@
 /*
    GWU 1st Group Project - good & simple budget tracker
 
-   Jon Telles, Marcus Hilaire, Nate Schubert, Al Curry 
+   Jon Telles, Marcus Hilaire, Nate Schubert, Al Curry
 
    February 20, 2018
 
@@ -73,9 +73,9 @@ $(document).ready(function () {
             outPutter(bArr[i][0], bArr[i][1]);
         } */
 
-        // we have budget items 
+        // we have budget items
     if (bArr.length > 0) {
-            
+
         if (!makeTable) {
 
             for (var i = 0; i < bArr.length; i++) {
@@ -88,9 +88,9 @@ $(document).ready(function () {
 
         } else {
 
-            // write the table header to html string 
-            // note with bulma class "table", which presents well but 
-            // seems to default to white background - may need modification 
+            // write the table header to html string
+            // note with bulma class "table", which presents well but
+            // seems to default to white background - may need modification
             html = '<table class="table">'
             if (inclHdr) {
                 html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
@@ -99,22 +99,22 @@ $(document).ready(function () {
 
             for (var i = 0; i < bArr.length; i++) {
 
-                // append each row of the table 
+                // append each row of the table
                 html += '<tr><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
                 console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
             }
 
-            // end the table 
+            // end the table
             html += "</tbody></table>";
 
-            // and append the html to output div -- jquery append closes tags 
-            // ergo multiple cals to append do not work correctly in this scenario 
+            // and append the html to output div -- jquery append closes tags
+            // ergo multiple cals to append do not work correctly in this scenario
             $("#output").append(html);
         }
     }
-    }    
+    }
 
-    // Get and Set local storage functions 
+    // Get and Set local storage functions
     var getBudgetInfoFromStorage = function () {
 
         var budgetObject = localStorage.getItem('budObject');
@@ -124,27 +124,27 @@ $(document).ready(function () {
             console.log("spend : " + budgetInfo.spendingMoney);
         }
 
-        // where & which fields from a saved budgetInfo object need to be displayed ? 
+        // where & which fields from a saved budgetInfo object need to be displayed ?
         // that could go here, or call a function here to do it
         displaySavedBudgetInfo(true, true);
         // argument 1 - include a header, only for a table
-        // arguemnt 2 - display in table format 
+        // arguemnt 2 - display in table format
         //
-        
+
 
     }
 
     var setBudgetInfoToStorage = function () {
 
-        // clear ? 
+        // clear ?
         // localStorage.clear()
 
-        // clears all local storage, not just our "budObject"  -- this way, without clear((),// should just  
-        // replace, which should be adequate 
+        // clears all local storage, not just our "budObject"  -- this way, without clear((),// should just
+        // replace, which should be adequate
 
         localStorage.setItem('budObject', JSON.stringify(budgetInfo));
-        
-       // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ? 
+
+       // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ?
     }
 
     var radioToggler = function () {
@@ -358,23 +358,47 @@ $(document).ready(function () {
     });
 
 // END OF PAGELOAD FUNCTION
-  // SHOULD BE FIRST -- 
-   // this function reads the BudgetInfo object from local storage 
-   
+  // SHOULD BE FIRST --
+   // this function reads the BudgetInfo object from local storage
+
    getBudgetInfoFromStorage();
-    
-/*   USED FOR TESTING - MAY BE NEEDED AGAIN  
- 
+
+/*   USED FOR TESTING - MAY BE NEEDED AGAIN
+
     budgetInfo.spendingMoney = 5000;
     addBudgetItem("Food", 10);
     addBudgetItem("Savings", 2000);
-    addBudgetItem("Other", 300); 
+    addBudgetItem("Other", 300);
      */
 
 
-// this may need to be called here - or other places near 
+// this may need to be called here - or other places near
 // the end of various functions - for now there are 3 calls
-// interspersed above, testing to finalize    
+// interspersed above, testing to finalize
 // setBudgetInfoToStorage();
 
+// Animations
+
+$(function() {
+    var animationend = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd MSanimationEnd';
+
+    $("#submit").on('click',function() {
+      $("#prompt").addClass("animated fadeIn").one(animationend,function() {
+        $(this).removeClass("animated fadeIn");
+      });
+    });
+
+    $("#submit").on('click',function() {
+      $("#output").addClass("animated bounceInRight").one(animationend,function() {
+        $(this).removeClass("animated bounceInRight");
+      });
+    });
+
+    $("#percentageAllocatorButton").on('click',function() {
+      $("#radioButtons").addClass("animated bounceInRight").one(animationend,function() {
+        $(this).removeClass("animated bounceInRight");
+      });
+    });
+
+});
 });
