@@ -10,6 +10,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <link rel=stylesheet type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
@@ -162,7 +163,11 @@
         <!-- <button id="submit" type="submit">Submit</button> -->
         <div class="container">
             <!-- <span id="spendingMoney"></span> -->
-            <div id="output"></div>
+            <div id="output">
+                <div class="pieBox">
+                    <canvas id="myChart"></canvas> <!-- piechart-->
+                </div>
+            </div>
         </div>
 
 
