@@ -106,23 +106,23 @@ $(document).ready(function () {
          var savingsPie = budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01);
          var trnsportationPie = budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01);
          var ohterPie = budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01);
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Food", foodPie);
+         if(budgetInfo.categories.catFood.percentage > 0){
+            pieChartPush("Food", foodPie);
+         }
+        if(budgetInfo.categories.catClothing.percentage > 0){
+            pieChartPush("Clothing", clothingPie);
          };
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Clothing", clothingPie);
+        if(budgetInfo.categories.catEntertainment.percentage > 0){
+            pieChartPush("Entertainment", entertainmentPie);
          };
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Entertainment", entertainmentPie);
+        if(budgetInfo.categories.catSavings.percentage > 0){
+            pieChartPush("Savings", savingsPie);
          };
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Savings", savingsPie);
+        if(budgetInfo.categories.catTransportation.percentage > 0){
+            pieChartPush("Transportation", trnsportationPie);
          };
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Transportation", trnsportationPie);
-         };
-         if(budgetInfo.categories.catFood.percentage>0){
-             pieChartPush("Other", ohterPie);
+        if(budgetInfo.categories.catOther.percentage > 0){
+            pieChartPush("Other", ohterPie);
          };
      };
  
@@ -373,7 +373,7 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
             // set the "totalSpent" of the Savings category based on allocated percentage
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
-             pieChartIf();
+            pieChartIf();
         }
 
         setBudgetInfoToStorage();
