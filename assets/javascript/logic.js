@@ -54,7 +54,7 @@ $(document).ready(function () {
             },
             catOther: {
                 name: "Other",
-                isTracked: false,
+                isTracked: true,
                 totalSpent: 0,
                 percentage: 0
             },
@@ -122,10 +122,10 @@ $(document).ready(function () {
         };
     };
 
-
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
         var bArr = budgetInfo.budgetItems;
         var html = "";
+ 
         console.log("dsbi : " + bArr.length);
 
         // maybe a simple table looks better than what existing outPutter() does  ?    AC 02/17/2018
@@ -172,10 +172,12 @@ $(document).ready(function () {
                 // write the table header to html string
                 // note with bulma class "table", which presents well but
                 // seems to default to white background - may need modification
-                html = '<table class="table">'
+
+                html = '<table class="table" >' 
+
                 if (inclHdr) {
                     html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
-                }
+                } 
                 html += '<tbody> ';
 
                 for (var i = 0; i < bArr.length; i++) {
@@ -288,6 +290,11 @@ $(document).ready(function () {
     var catTotalDollarAmount;
     var outPutter = function (appendCategory, appendCost) {
         // based on category and cost of last budget item, output the following information: total $ spent in that category, what % of total allocation has been spent so far, and $ remaining for that category
+
+        var html = "";
+        var bArr = budgetInfo.budgetItems;
+        var inclHdr = true;
+
         if (appendCategory === "Food") {
             catTotalDollarAmount = budgetInfo.categories.catFood.totalSpent;
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
@@ -305,8 +312,43 @@ $(document).ready(function () {
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         }
         // always display last added budget item's category and cost
-        $("#output").append("Category: " + appendCategory + " ");
-        $("#output").append("Cost: " + "$" + appendCost + "<br\>");
+      
+        if (1 === 1) {   // note - always true, this will execute 
+                                // but we can easily flip the switch if need be
+                                // and go back to the original format in the "else"
+
+            $("#output").empty();    // WILL THIS ONLY BE THE TABLE ?
+
+            html = '<table class="table" >'
+          
+            if (inclHdr) {
+
+                html += '<thead style="background-color: rgb(189, 250, 229)"    > <tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
+            } 
+            html += '<tbody> ';
+
+            for (var i = 0; i < bArr.length; i++) {
+
+                // append each row of the table
+                html += '<tr style="background-color: rgb(189, 250, 229)"><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
+                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            }
+
+            // end the table
+            html += "</tbody></table>";
+
+            // had trouble testing this with the other table :  
+            // if there are stored budget items, how  does one enter more ? 
+            // each table seems to work correctly on its own, but i suspect
+            // we'll end up with 2 header if there is both stored and new 
+            // budget items to be displayed
+
+            $("#output").append(html);
+        } else {
+            // original format - if table looks right, can be deleted
+            $("#output").append("Category: " + appendCategory + " ");
+            $("#output").append("Cost: " + "$" + appendCost + "<br\>");
+        }    
     };
 
     // listens to the inputs of each percentage allocater field, when user presses a key in each percentage allocater input fields, convert what they've typed to the correct $ amount and display it in the span for that category
@@ -487,16 +529,13 @@ $(document).ready(function () {
 
     /*   USED FOR TESTING - MAY BE NEEDED AGAIN
 
-        budgetInfo.spendingMoney = 5000;
+        budgetInfo.spendingMoney = 5000;      
         addBudgetItem("Food", 10);
         addBudgetItem("Savings", 2000);
         addBudgetItem("Other", 300);
-         */
-
-
+        */
     // this may need to be called here - or other places near
     // the end of various functions - for now there are 3 calls
     // interspersed above, testing to finalize
     // setBudgetInfoToStorage();
-
 });
