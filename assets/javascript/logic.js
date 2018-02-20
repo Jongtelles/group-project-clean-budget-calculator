@@ -400,5 +400,11 @@ $(function() {
       });
     });
 
+    $("#submit").on('click',function() {
+      $("#additionalInfo").addClass("animated bounceInLeft").one(animationend,function() {
+        $(this).removeClass("animated bounceInLeft");
+      });
+    });
+
 });
 });

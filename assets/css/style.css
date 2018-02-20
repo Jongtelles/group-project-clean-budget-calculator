@@ -136,6 +136,8 @@ h1 {
 
 #percentageAllocatorButton {
     display: none;
+    height: 80px;
+    width: 200px;
     /*these attributes do not display*/
     /* height: 80px;
     width: 200px;
