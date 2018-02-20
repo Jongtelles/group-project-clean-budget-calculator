@@ -31,7 +31,8 @@ h1 {
     margin-top: 30px;
 }
 
-#submit {
+#submit,
+#reset {
     height: 80px;
     width: 200px;
 }
@@ -137,9 +138,9 @@ h1 {
 #percentageAllocatorButton {
     display: none;
     /*these attributes do not display*/
-    height: 80px;
+    /* height: 80px;
     width: 200px;
-    margin: 10px;
+    margin: 10px; */
 }
 
 #output,
@@ -150,7 +151,10 @@ h1 {
     font-size: 30px;
     padding-left: 15px;
 }
-
+.pieBox{
+    float: right;
+    width: 30%;
+}
 .footer {
     background-color: grey;
     margin-top: 300px;

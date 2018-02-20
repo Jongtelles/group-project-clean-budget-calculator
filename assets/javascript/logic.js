@@ -93,8 +93,6 @@ $(document).ready(function () {
         myChart.data.datasets[0].data.push(allocation);
         myChart.data.labels.push(tooltip);
         myChart.update();
-        console.log(myChart.data.datasets[0].data + " - data pushed to array");
-        console.log(myChart.data.labels + " - label pushed to array");
     };
 
     var pieChartIf = function () {
@@ -123,7 +121,6 @@ $(document).ready(function () {
             pieChartPush("Other", otherPie);
         };
     };
-
 
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
         var bArr = budgetInfo.budgetItems;
@@ -175,6 +172,7 @@ $(document).ready(function () {
                 // write the table header to html string
                 // note with bulma class "table", which presents well but
                 // seems to default to white background - may need modification
+
                 html = '<table class="table" >' 
 
                 if (inclHdr) {
@@ -232,40 +230,40 @@ $(document).ready(function () {
 
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodR").toggle();
+            $(".foodR").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingR").toggle();
+            $(".clothingR").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentR").toggle();
+            $(".entertainmentR").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationR").toggle();
+            $(".transportationR").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherR").toggle();
+            $(".otherR").show();
         }
     };
     var allocationToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodP").toggle();
+            $(".foodP").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingP").toggle();
+            $(".clothingP").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentP").toggle();
+            $(".entertainmentP").show();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
             $(".savingsP").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationP").toggle();
+            $(".transportationP").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherP").toggle();
-        }
+            $(".otherP").show();
+        }      
     }
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -314,6 +312,7 @@ $(document).ready(function () {
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         }
         // always display last added budget item's category and cost
+      
         if (1 === 1) {   // note - always true, this will execute 
                                 // but we can easily flip the switch if need be
                                 // and go back to the original format in the "else"
@@ -409,9 +408,20 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.isTracked = false;
             budgetInfo.categories.catOther.totalSpent = 0;
             budgetInfo.categories.catOther.percentage = 0;
+            myChart.data.datasets[0].data = [];
+            myChart.data.labels = [];
+            myChart.update();            
+            $("#catSavingsInput").val("0");
+            $("#catFoodInput").val("0");
+            $("#catClothingInput").val("0");
+            $("#catEntertainmentInput").val("0");
+            $("#catTransportationInput").val("0");
+            $("#catOtherInput").val("0");
+            $("#userInputDollars").val("");            
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
+            $(".inputP").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
             $("#percentageAllocator").hide();
@@ -507,7 +517,6 @@ $(document).ready(function () {
             var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
-            console.log("food? " + $("radioFood").prop("checked"));
         }
         setBudgetInfoToStorage();
     });
@@ -520,16 +529,13 @@ $(document).ready(function () {
 
     /*   USED FOR TESTING - MAY BE NEEDED AGAIN
 
-        budgetInfo.spendingMoney = 5000;
-        
+        budgetInfo.spendingMoney = 5000;      
         addBudgetItem("Food", 10);
         addBudgetItem("Savings", 2000);
         addBudgetItem("Other", 300);
         */
-         
     // this may need to be called here - or other places near
     // the end of various functions - for now there are 3 calls
     // interspersed above, testing to finalize
     // setBudgetInfoToStorage();
-
 });

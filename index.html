@@ -10,6 +10,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <link rel=stylesheet type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
@@ -77,9 +78,6 @@
             <input type="radio" class="radioB entertainmentR" id="radioEntertainment" name="category" value="catEntertainment">
             <label for="radioEntertainment" class="radioB entertainmentR">Entertainment</label>
 
-            <!-- <input type="radio" class="radioB savingsR" id="radioSavings" name="category" value="catSavings">
-            <label for="raidoSavings" class="radioB savingsR">Savings</label> -->
-
             <input type="radio" class="radioB transportationR" id="radioTransportation" name="category" value="catTransportation">
             <label for="radioTransportation" class="radioB transportationR">Transportation</label>
 
@@ -125,9 +123,6 @@
             </div>
         </fieldset>
     </div>
-    <div class="container">
-        <a id="percentageAllocatorButton" class="button is-primary is-outlined is-auto">Submit</a>
-    </div>
     <!--reformat this userInput to fit Bulma  -->
     <div class="block">
         <div class="columns">
@@ -154,6 +149,12 @@
                 <div class="column is-2">
                     <div class="container">
                         <a id="submit" class="button is-primary is-outlined is-auto animated zoomInDown">Submit</a>
+                        <a id="percentageAllocatorButton" class="button is-primary is-outlined is-auto animated zoomInDown">Submit</a>
+                        <a id="reset" class="button is-primary is-outlined is-auto animated zoomInDown">Reset</a>
+                        <div class="pieBox">
+                            <canvas id="myChart"></canvas>
+                            <!-- piechart-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,6 +165,7 @@
         <div class="container">
             <!-- <span id="spendingMoney"></span> -->
             <div id="output"></div>
+
         </div>
 
 
