@@ -54,7 +54,7 @@ $(document).ready(function () {
             },
             catOther: {
                 name: "Other",
-                isTracked: true,
+                isTracked: false,
                 totalSpent: 0,
                 percentage: 0
             },
