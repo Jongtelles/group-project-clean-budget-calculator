@@ -62,6 +62,67 @@ $(document).ready(function () {
         //budgetInfo object end
     };
 
+    // pie chart
+    var ctx = $("#myChart");
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            // categoies will be pushed to the array below
+            labels: [],
+            datasets: [{
+                // percent allocations will be pushed to the array below
+                data: [],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(144, 0, 32, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                ],
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            responsive: true,
+        }
+    }); // end of pie chart
+
+    var pieChartPush = function (tooltip, allocation) {
+
+        myChart.data.datasets[0].data.push(allocation);
+        myChart.data.labels.push(tooltip);
+        myChart.update();
+    };
+
+    var pieChartIf = function () {
+        var foodPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catFood.percentage * 0.01));
+        var clothingPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catClothing.percentage * 0.01));
+        var entertainmentPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01));
+        var savingsPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
+        var trnsportationPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01));
+        var otherPie = Math.floor(budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01));
+        if (budgetInfo.categories.catFood.percentage > 0) {
+            pieChartPush("Food", foodPie);
+        }
+        if (budgetInfo.categories.catClothing.percentage > 0) {
+            pieChartPush("Clothing", clothingPie);
+        };
+        if (budgetInfo.categories.catEntertainment.percentage > 0) {
+            pieChartPush("Entertainment", entertainmentPie);
+        };
+        if (budgetInfo.categories.catSavings.percentage > 0) {
+            pieChartPush("Savings", savingsPie);
+        };
+        if (budgetInfo.categories.catTransportation.percentage > 0) {
+            pieChartPush("Transportation", trnsportationPie);
+        };
+        if (budgetInfo.categories.catOther.percentage > 0) {
+            pieChartPush("Other", otherPie);
+        };
+    };
+
+
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
 
         var bArr = budgetInfo.budgetItems;
@@ -149,42 +210,42 @@ $(document).ready(function () {
 
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodR").toggle()
+            $(".foodR").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingR").toggle()
+            $(".clothingR").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentR").toggle()
+            $(".entertainmentR").show();
         }
         // if (budgetInfo.categories.catSavings.isTracked == true) {
         //     $(".savingsR").toggle()
         // }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationR").toggle()
+            $(".transportationR").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherR").toggle()
+            $(".otherR").show();
         }
     };
     var allocationToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodP").toggle()
+            $(".foodP").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingP").toggle()
+            $(".clothingP").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentP").toggle()
+            $(".entertainmentP").show();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
             $(".savingsP").toggle()
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationP").toggle()
+            $(".transportationP").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherP").toggle()
+            $(".otherP").show();
         }
     }
     //function that allows user to add items to the budget array based on category and dollar amount
@@ -275,6 +336,71 @@ $(document).ready(function () {
         }
     });
 
+    // big ugly reset that clears local storage, sets all variables of the budgetInfo object to default, and resets DOM to initial display
+    $("#reset").on("click", function () {
+        var reset = confirm("Are you sure? This will reset ALL stored data.");
+        if (reset == true) {
+            localStorage.clear();
+            catTotalDollarAmount = undefined;
+            budgetInfo.spendingMoney = 0;
+            budgetInfo.incomeSubmitted = false;
+            budgetInfo.categoriesSelected = false;
+            budgetInfo.trackingPercents = false;
+            budgetInfo.budgetItems = [];
+            budgetInfo.categories.catFood.isTracked = false;
+            budgetInfo.categories.catFood.totalSpent = 0;
+            budgetInfo.categories.catFood.percentage = 0;
+            budgetInfo.categories.catClothing.isTracked = false;
+            budgetInfo.categories.catClothing.totalSpent = 0;
+            budgetInfo.categories.catClothing.percentage = 0;
+            budgetInfo.categories.catEntertainment.isTracked = false;
+            budgetInfo.categories.catEntertainment.totalSpent = 0;
+            budgetInfo.categories.catEntertainment.percentage = 0;
+            budgetInfo.categories.catSavings.isTracked = true;
+            budgetInfo.categories.catSavings.totalSpent = 0;
+            budgetInfo.categories.catSavings.percentage = 0;
+            budgetInfo.categories.catTransportation.isTracked = false;
+            budgetInfo.categories.catTransportation.totalSpent = 0;
+            budgetInfo.categories.catTransportation.percentage = 0;
+            budgetInfo.categories.catOther.isTracked = false;
+            budgetInfo.categories.catOther.totalSpent = 0;
+            budgetInfo.categories.catOther.percentage = 0;
+            myChart.data.datasets[0].data = [];
+            myChart.data.labels = [];
+            myChart.update();
+            $("#catSavingsInput").val("0");
+            $("#catFoodInput").val("0");
+            $("#catClothingInput").val("0");
+            $("#catEntertainmentInput").val("0");
+            $("#catTransportationInput").val("0");
+            $("#catOtherInput").val("0");
+            $("#userInputDollars").val("");
+            $("#output").empty();
+            $("#additionalInfo").empty();
+            $(".radioB").hide();
+            $(".inputP").hide();
+            $("#categoryCheckbox").hide();
+            $("#percentageAllocatorButton").hide();
+            $("#percentageAllocator").hide();
+            $("#catSavingsConverted").empty();
+            $("#catFoodConverted").empty();
+            $("#catClothingConverted").empty();
+            $("#catEntertainmentConverted").empty();
+            $("#catTransportationConverted").empty();
+            $("#catOtherConverted").empty();
+            $("#submit").show();
+            $("#userInputDollars").show();
+            $(".checkbox").prop("checked", false);
+            $(".radioB").prop("checked", false);
+            $("#prompt").html("<h2>After fixed costs, how much do you have leftover to spend?</h2>");
+        } else return;
+    });
+
+    //sets the variables in the budgetInfo object
+    var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
+        budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
+    };
+
     // listens for any changes to a element with the checkbox class, determines the value of the checkbox input and if it is checked or unchecked, and passes those values to the checkboxChecker function
     $(".checkbox").change(function () {
         var whichCheckboxAreYou = $(this).val();
@@ -352,7 +478,6 @@ $(document).ready(function () {
             var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
-            console.log("food? " + $("radioFood").prop("checked"));
         }
         setBudgetInfoToStorage();
     });
@@ -406,5 +531,4 @@ $(function() {
       });
     });
 
-});
 });
