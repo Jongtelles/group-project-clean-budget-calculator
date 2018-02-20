@@ -390,6 +390,7 @@ $(document).ready(function () {
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
+            $(".inputP").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
             $("#percentageAllocator").hide();
