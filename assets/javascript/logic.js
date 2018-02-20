@@ -68,10 +68,10 @@ $(document).ready(function () {
         type: 'pie',
         data: {
             // categoies will be pushed to the array below
-            labels: [],
+            labels: JSON.parse(localStorage.getItem("Labels")),
             datasets: [{
                 // percent allocations will be pushed to the array below
-                data: [],
+                data: JSON.parse(localStorage.getItem("Data")),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.8)',
                     'rgba(54, 162, 235, 0.8)',
@@ -87,12 +87,22 @@ $(document).ready(function () {
             responsive: true,
         }
     }); // end of pie chart
+    
+    // pie chart storage
+   var pieCloset = function(){
+       var pieLabel = myChart.data.labels;
+       var pieData = myChart.data.datasets[0].data;
+       localStorage.setItem("Labels", JSON.stringify(pieLabel));
+       localStorage.setItem("Data", JSON.stringify(pieData));
+       
+   }
 
     var pieChartPush = function (tooltip, allocation) {
 
         myChart.data.datasets[0].data.push(allocation);
         myChart.data.labels.push(tooltip);
         myChart.update();
+        pieCloset();
     };
 
     var pieChartIf = function () {
