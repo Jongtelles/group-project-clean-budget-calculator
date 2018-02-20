@@ -230,39 +230,39 @@ $(document).ready(function () {
 
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodR").toggle();
+            $(".foodR").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingR").toggle();
+            $(".clothingR").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentR").toggle();
+            $(".entertainmentR").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationR").toggle();
+            $(".transportationR").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherR").toggle();
+            $(".otherR").show();
         }
     };
     var allocationToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodP").toggle();
+            $(".foodP").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingP").toggle();
+            $(".clothingP").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentP").toggle();
+            $(".entertainmentP").show();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
             $(".savingsP").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationP").toggle();
+            $(".transportationP").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherP").toggle();
+            $(".otherP").show();
         }
         console.log("toggled allocation called");
         console.log(" food track? " + budgetInfo.categories.catFood.isTracked);
@@ -392,7 +392,7 @@ $(document).ready(function () {
             $(".radioB").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
-            // $("#percentageAllocator").toggle();
+            $("#percentageAllocator").hide();
             $("#catSavingsConverted").empty();
             $("#catFoodConverted").empty();
             $("#catClothingConverted").empty();
