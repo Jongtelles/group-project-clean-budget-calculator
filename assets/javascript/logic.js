@@ -378,6 +378,7 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = 0;
             myChart.data.datasets[0].data = [];
             myChart.data.labels = [];
+            myChart.update();            
             console.log("there should be nothing in here: lables "+ myChart.data.labels);
             console.log("there should be nothing in here: data "+ myChart.data.datasets[0].data);
             $("#catSavingsInput").val("0");
