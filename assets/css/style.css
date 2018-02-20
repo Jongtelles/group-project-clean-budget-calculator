@@ -32,7 +32,8 @@ h1 {
 }
 
 #submit,
-#reset {
+#reset,
+#percentageAllocatorButton {
     height: 80px;
     width: 200px;
 }
@@ -134,14 +135,6 @@ h1 {
     width: 30px;
 }
 
-#percentageAllocatorButton {
-    display: none;
-    /*these attributes do not display*/
-    /* height: 80px;
-    width: 200px;
-    margin: 10px; */
-}
-
 #output,
 #spendingMoney,
 #savings {
@@ -150,10 +143,12 @@ h1 {
     font-size: 30px;
     padding-left: 15px;
 }
-.pieBox{
+
+.pieBox {
     float: right;
     width: 30%;
 }
+
 .footer {
     background-color: grey;
     margin-top: 300px;
