@@ -230,39 +230,39 @@ $(document).ready(function () {
 
     var radioToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodR").toggle();
+            $(".foodR").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingR").toggle();
+            $(".clothingR").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentR").toggle();
+            $(".entertainmentR").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationR").toggle();
+            $(".transportationR").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherR").toggle();
+            $(".otherR").show();
         }
     };
     var allocationToggler = function () {
         if (budgetInfo.categories.catFood.isTracked == true) {
-            $(".foodP").toggle();
+            $(".foodP").show();
         }
         if (budgetInfo.categories.catClothing.isTracked == true) {
-            $(".clothingP").toggle();
+            $(".clothingP").show();
         }
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
-            $(".entertainmentP").toggle();
+            $(".entertainmentP").show();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
             $(".savingsP").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
-            $(".transportationP").toggle();
+            $(".transportationP").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
-            $(".otherP").toggle();
+            $(".otherP").show();
         }
     }
     //function that allows user to add items to the budget array based on category and dollar amount
@@ -371,6 +371,7 @@ $(document).ready(function () {
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
+            $(".inputP").hide();
             $("#categoryCheckbox").hide();
             $("#percentageAllocatorButton").hide();
             $("#percentageAllocator").hide();
