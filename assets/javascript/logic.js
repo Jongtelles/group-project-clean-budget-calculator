@@ -11,6 +11,8 @@
 
 // On page load
 $(document).ready(function () {
+    // for some reason we can't get the styling to work on this button unless it does not start hidden, so it gets hidden right away
+    $("#percentageAllocatorButton").hide();
     // budgetInfo object contains all necessary variables
     var budgetInfo = {
         //user inputs total amount of $ to track
@@ -78,7 +80,7 @@ $(document).ready(function () {
                     'rgba(255, 206, 86, 0.8)',
                     'rgba(144, 0, 32, 0.8)',
                     'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(0, 102, 0, 0.8)',
                 ],
                 borderWidth: 1,
             }],
@@ -87,15 +89,15 @@ $(document).ready(function () {
             responsive: true,
         }
     }); // end of pie chart
-    
+
     // pie chart storage
-   var pieCloset = function(){
-       var pieLabel = myChart.data.labels;
-       var pieData = myChart.data.datasets[0].data;
-       localStorage.setItem("Labels", JSON.stringify(pieLabel));
-       localStorage.setItem("Data", JSON.stringify(pieData));
-       
-   }
+    var pieCloset = function () {
+        var pieLabel = myChart.data.labels;
+        var pieData = myChart.data.datasets[0].data;
+        localStorage.setItem("Labels", JSON.stringify(pieLabel));
+        localStorage.setItem("Data", JSON.stringify(pieData));
+
+    }
 
     var pieChartPush = function (tooltip, allocation) {
 
@@ -323,11 +325,11 @@ $(document).ready(function () {
         }
         // always display last added budget item's category and cost
 
-        if (1 === 1) {   // note - always true, this will execute
-                                // but we can easily flip the switch if need be
-                                // and go back to the original format in the "else"
+        if (1 === 1) { // note - always true, this will execute
+            // but we can easily flip the switch if need be
+            // and go back to the original format in the "else"
 
-            $("#output").empty();    // WILL THIS ONLY BE THE TABLE ?
+            $("#output").empty(); // WILL THIS ONLY BE THE TABLE ?
 
             html = '<table class="table" >'
 
@@ -550,34 +552,34 @@ $(document).ready(function () {
     // setBudgetInfoToStorage();
 
 
-// animations
+    // animations
 
-    $(function() {
+    $(function () {
         var animationend = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd MSanimationEnd';
 
-        $("#submit").on('click',function() {
-          $("#prompt").addClass("animated fadeIn").one(animationend,function() {
-            $(this).removeClass("animated fadeIn");
-          });
+        $("#submit").on('click', function () {
+            $("#prompt").addClass("animated bounceInRight").one(animationend, function () {
+                $(this).removeClass("animated bounceInRight");
+            });
         });
 
-        $("#submit").on('click',function() {
-          $("#output").addClass("animated bounceInRight").one(animationend,function() {
-            $(this).removeClass("animated bounceInRight");
-          });
+        $("#submit").on('click', function () {
+            $("#output").addClass("animated fadeIn").one(animationend, function () {
+                $(this).removeClass("animated fadeIn");
+            });
         });
 
-        $("#percentageAllocatorButton").on('click',function() {
-          $("#radioButtons").addClass("animated bounceInRight").one(animationend,function() {
-            $(this).removeClass("animated bounceInRight");
-          });
+        $("#percentageAllocatorButton").on('click', function () {
+            $("#radioButtons").addClass("animated bounceInRight").one(animationend, function () {
+                $(this).removeClass("animated bounceInRight");
+            });
         });
 
-        $("#submit").on('click',function() {
-          $("#additionalInfo").addClass("animated bounceInLeft").one(animationend,function() {
-            $(this).removeClass("animated bounceInLeft");
-          });
+        $("#submit").on('click', function () {
+            $("#additionalInfo").addClass("animated bounceInLeft").one(animationend, function () {
+                $(this).removeClass("animated bounceInLeft");
+            });
         });
-      });
+    });
 
 });
