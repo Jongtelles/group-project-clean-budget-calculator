@@ -57,6 +57,7 @@ h1 {
 
 #radioButtons {
     margin: 10px;
+    border: 1px solid MediumAquaMarine;
     font-size: 20px;
     color: white;
     background-color: MediumAquaMarine;
@@ -89,8 +90,8 @@ h1 {
 
 #percentageAllocator {
     display: none;
-    color: white;
     background-color: MediumAquaMarine;
+    color: white;
     font-size: 20px;
     padding: 20px;
     margin-top: 30px;
@@ -136,8 +137,6 @@ h1 {
 
 #percentageAllocatorButton {
     display: none;
-    height: 80px;
-    width: 200px;
     /*these attributes do not display*/
     /* height: 80px;
     width: 200px;

@@ -29,7 +29,7 @@
         </div>
     </section>
 
-    <div id="prompt">
+    <div id="prompt" class="animated fadeIn">
         <h2>After fixed costs, how much do you have leftover to spend?</h2>
     </div>
 
@@ -69,7 +69,7 @@
     <!-- raido button set to be hidden until stage 3 -->
     <div class="container">
         <div id="radioButtons">
-            <input type="radio" class="radioB foodR" id="radioFood" name="category" value="catFood">
+            <input type="radio" class="radioB foodR animated fadeIn" id="radioFood" name="category" value="catFood">
             <label for="radioFood" class="radioB foodR">Food</label>
 
             <input type="radio" class="radioB clothingR" id="radioClothing" name="category" value="catClothing">
@@ -88,7 +88,7 @@
 
     <!-- User percentage allocation interface  -->
     <div class="container">
-        <fieldset id="percentageAllocator" class="animated bounceInDown">
+        <fieldset id="percentageAllocator">
             <div>
                 <label id="catSavingsLabel" for="catSavings" class="inputP savingsP">Savings (used to determine how much you'll save for next month): </label>
                 <input id="catSavingsInput" type="text" class="inputP savingsP" placeholder="%" max="100" maxlength="3" size="3" value="0">
