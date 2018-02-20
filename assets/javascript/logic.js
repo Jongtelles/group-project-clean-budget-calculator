@@ -93,8 +93,6 @@ $(document).ready(function () {
         myChart.data.datasets[0].data.push(allocation);
         myChart.data.labels.push(tooltip);
         myChart.update();
-        console.log(myChart.data.datasets[0].data + " - data pushed to array");
-        console.log(myChart.data.labels + " - label pushed to array");
     };
 
     var pieChartIf = function () {
@@ -263,7 +261,7 @@ $(document).ready(function () {
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
             $(".otherP").show();
-        }
+        }      
     }
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -368,6 +366,16 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.isTracked = false;
             budgetInfo.categories.catOther.totalSpent = 0;
             budgetInfo.categories.catOther.percentage = 0;
+            myChart.data.datasets[0].data = [];
+            myChart.data.labels = [];
+            myChart.update();            
+            $("#catSavingsInput").val("0");
+            $("#catFoodInput").val("0");
+            $("#catClothingInput").val("0");
+            $("#catEntertainmentInput").val("0");
+            $("#catTransportationInput").val("0");
+            $("#catOtherInput").val("0");
+            $("#userInputDollars").val("");            
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
@@ -467,7 +475,6 @@ $(document).ready(function () {
             var stageThreeCost = parseInt($("#userInputDollars").val(), 10);
             addBudgetItem(stageThreeCat, stageThreeCost);
             outPutter(stageThreeCat, stageThreeCost);
-            console.log("food? " + $("radioFood").prop("checked"));
         }
         setBudgetInfoToStorage();
     });
