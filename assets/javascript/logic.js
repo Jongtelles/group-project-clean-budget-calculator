@@ -93,8 +93,6 @@ $(document).ready(function () {
         myChart.data.datasets[0].data.push(allocation);
         myChart.data.labels.push(tooltip);
         myChart.update();
-        console.log(myChart.data.datasets[0].data + " - data pushed to array");
-        console.log(myChart.data.labels + " - label pushed to array");
     };
 
     var pieChartIf = function () {
@@ -263,15 +261,7 @@ $(document).ready(function () {
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
             $(".otherP").show();
-        }
-        console.log("toggled allocation called");
-        console.log(" food track? " + budgetInfo.categories.catFood.isTracked);
-        console.log(" clothing track? " + budgetInfo.categories.catClothing.isTracked);
-        console.log(" Entertainment track? " + budgetInfo.categories.catEntertainment.isTracked);
-        console.log(" Savings track? " + budgetInfo.categories.catSavings.isTracked);
-        console.log(" Other track? " + budgetInfo.categories.catOther.isTracked);
-        console.log(" Transportation track? " + budgetInfo.categories.catTransportation.isTracked);        
-        ;
+        }      
     }
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -379,8 +369,6 @@ $(document).ready(function () {
             myChart.data.datasets[0].data = [];
             myChart.data.labels = [];
             myChart.update();            
-            console.log("there should be nothing in here: lables "+ myChart.data.labels);
-            console.log("there should be nothing in here: data "+ myChart.data.datasets[0].data);
             $("#catSavingsInput").val("0");
             $("#catFoodInput").val("0");
             $("#catClothingInput").val("0");
