@@ -124,7 +124,6 @@ $(document).ready(function () {
 
 
     var displaySavedBudgetInfo = function (inclHdr, makeTable) {
-
         var bArr = budgetInfo.budgetItems;
         var html = "";
         console.log("dsbi : " + bArr.length);
@@ -133,46 +132,67 @@ $(document).ready(function () {
         /*   for (var i = 0; i < bArr.length; i++) {
             outPutter(bArr[i][0], bArr[i][1]);
         } */
+        // if user refreshed after submitting total spending money, display checkboxes
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false && budgetInfo.trackingPercents === false) {
+            $("#categoryCheckbox").toggle();
+            $("#userInputDollars").toggle();
+            $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
+        }
+        // if user refreshed after submitting total spending money and selecting categories to track, but before allocating percentages, display allocator with correct categories
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === false) {
+            allocationToggler();
+            $("#percentageAllocator").toggle();
+            $("#percentageAllocatorButton").toggle();
+            $("#userInputDollars").toggle();
+            $("#submit").toggle();
+            $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
+        }
+        // if user refreshed after submitting total spending money, selecting categories to track, and allocating percentages but before adding any budget items, display radio buttons based on categories previously selected
+        if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
+            radioToggler();
+            $("#prompt").html("<h2>Welcome back! Buy something new?</h2>");
+        }
 
         // we have budget items
-    if (bArr.length > 0) {
+        if (bArr.length > 0) {
+            radioToggler();
+            $("#prompt").html("<h2>Welcome back! Buy something new?</h2>");
+            if (!makeTable) {
 
-        if (!makeTable) {
+                for (var i = 0; i < bArr.length; i++) {
 
-            for (var i = 0; i < bArr.length; i++) {
+                    $("#output").append("Category: " + bArr[i].category + " ");
+                    $("#output").append("Cost: " + "$" + bArr[i].dollarAmount + "<br\>");
 
-                $("#output").append("Category: " + bArr[i].category + " ");
-                $("#output").append("Cost: " + "$" + bArr[i].dollarAmount + "<br\>");
+                    console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+                }
 
-                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+            } else {
+
+                // write the table header to html string
+                // note with bulma class "table", which presents well but
+                // seems to default to white background - may need modification
+                html = '<table class="table">'
+                if (inclHdr) {
+                    html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
+                }
+                html += '<tbody> ';
+
+                for (var i = 0; i < bArr.length; i++) {
+
+                    // append each row of the table
+                    html += '<tr><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
+                    console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
+                }
+
+                // end the table
+                html += "</tbody></table>";
+
+                // and append the html to output div -- jquery append closes tags
+                // ergo multiple cals to append do not work correctly in this scenario
+                $("#output").append(html);
             }
-
-        } else {
-
-            // write the table header to html string
-            // note with bulma class "table", which presents well but
-            // seems to default to white background - may need modification
-            html = '<table class="table">'
-            if (inclHdr) {
-                html += '<thead><tr><th style="font-weight:normal">Category</th><th style="font-weight:normal;text-align:right">Cost</th></tr></thead > ';
-            }
-            html += '<tbody> ';
-
-            for (var i = 0; i < bArr.length; i++) {
-
-                // append each row of the table
-                html += '<tr><td>' + bArr[i].category + '</td><td style="text-align:right">' + '$' + bArr[i].dollarAmount + '</td></tr>';
-                console.log("budgetCategory: " + bArr[i].category + "   budgetAmount: " + bArr[i].dollarAmount);
-            }
-
-            // end the table
-            html += "</tbody></table>";
-
-            // and append the html to output div -- jquery append closes tags
-            // ergo multiple cals to append do not work correctly in this scenario
-            $("#output").append(html);
         }
-    }
     }
 
     // Get and Set local storage functions
@@ -190,8 +210,6 @@ $(document).ready(function () {
         displaySavedBudgetInfo(true, true);
         // argument 1 - include a header, only for a table
         // arguemnt 2 - display in table format
-        //
-
 
     }
 
@@ -205,7 +223,7 @@ $(document).ready(function () {
 
         localStorage.setItem('budObject', JSON.stringify(budgetInfo));
 
-       // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ?
+        // where will this need to be called, so that data is saved on exit ?   bottom of last on click  ?
     }
 
     var radioToggler = function () {
@@ -218,9 +236,6 @@ $(document).ready(function () {
         if (budgetInfo.categories.catEntertainment.isTracked == true) {
             $(".entertainmentR").show();
         }
-        // if (budgetInfo.categories.catSavings.isTracked == true) {
-        //     $(".savingsR").toggle()
-        // }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
             $(".transportationR").show();
         }
@@ -239,14 +254,14 @@ $(document).ready(function () {
             $(".entertainmentP").show();
         }
         if (budgetInfo.categories.catSavings.isTracked == true) {
-            $(".savingsP").toggle()
+            $(".savingsP").show();
         }
         if (budgetInfo.categories.catTransportation.isTracked == true) {
             $(".transportationP").show();
         }
         if (budgetInfo.categories.catOther.isTracked == true) {
             $(".otherP").show();
-        }
+        }      
     }
     //function that allows user to add items to the budget array based on category and dollar amount
     var addBudgetItem = function (cat, dollars) {
@@ -261,11 +276,7 @@ $(document).ready(function () {
             budgetInfo.categories.catClothing.totalSpent += dollars;
         } else if (cat === "Entertainment") {
             budgetInfo.categories.catEntertainment.totalSpent += dollars;
-        }
-        // else if (cat === "Savings") {
-        //     budgetInfo.categories.catSavings.totalSpent += dollars;
-        // }
-        else if (cat === "Transportation") {
+        } else if (cat === "Transportation") {
             budgetInfo.categories.catTransportation.totalSpent += dollars;
         } else if (cat === "Other") {
             budgetInfo.categories.catOther.totalSpent += dollars;
@@ -286,12 +297,7 @@ $(document).ready(function () {
         } else if (appendCategory === "Entertainment") {
             catTotalDollarAmount = budgetInfo.categories.catEntertainment.totalSpent;
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catEntertainment.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
-        }
-        // else if (appendCategory === "Savings") {
-        //     catTotalDollarAmount = budgetInfo.categories.catSavings.totalSpent;
-        //     $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's" + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
-        // }
-        else if (appendCategory === "Transportation") {
+        } else if (appendCategory === "Transportation") {
             catTotalDollarAmount = budgetInfo.categories.catTransportation.totalSpent;
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catTransportation.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         } else if (appendCategory === "Other") {
@@ -299,15 +305,10 @@ $(document).ready(function () {
             $("#additionalInfo").html("You've spent $" + catTotalDollarAmount + " total in " + appendCategory + " so far. That's " + Math.floor((catTotalDollarAmount / (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01)) * 100)) + "% of your allocation for that category, you have $" + (budgetInfo.spendingMoney * (budgetInfo.categories.catOther.percentage * 0.01) - catTotalDollarAmount) + " remaining in that category.");
         }
         // always display last added budget item's category and cost
-        // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
         $("#output").append("Category: " + appendCategory + " ");
         $("#output").append("Cost: " + "$" + appendCost + "<br\>");
     };
 
-    //sets the variables in the budgetInfo object
-    var checkboxChecker = function (whichCheckboxAreYou, isTrackedBool) {
-        budgetInfo.categories[whichCheckboxAreYou].isTracked = isTrackedBool;
-    };
     // listens to the inputs of each percentage allocater field, when user presses a key in each percentage allocater input fields, convert what they've typed to the correct $ amount and display it in the span for that category
     $(".inputP").keyup(function () {
         if ($(this).prop("id") === "catSavingsInput") {
@@ -367,14 +368,14 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = 0;
             myChart.data.datasets[0].data = [];
             myChart.data.labels = [];
-            myChart.update();
+            myChart.update();            
             $("#catSavingsInput").val("0");
             $("#catFoodInput").val("0");
             $("#catClothingInput").val("0");
             $("#catEntertainmentInput").val("0");
             $("#catTransportationInput").val("0");
             $("#catOtherInput").val("0");
-            $("#userInputDollars").val("");
+            $("#userInputDollars").val("");            
             $("#output").empty();
             $("#additionalInfo").empty();
             $(".radioB").hide();
@@ -418,6 +419,7 @@ $(document).ready(function () {
             console.log(percentTotal);
             return;
         } else {
+            $("#userInputDollars").val("");
             budgetInfo.trackingPercents = true;
             $("#percentageAllocator").toggle();
             $("#submit").toggle();
@@ -434,23 +436,22 @@ $(document).ready(function () {
             budgetInfo.categories.catOther.percentage = parseInt($("#catOtherInput").val(), 10);
             // set the "totalSpent" of the Savings category based on allocated percentage
             budgetInfo.categories.catSavings.totalSpent = (budgetInfo.spendingMoney * (budgetInfo.categories.catSavings.percentage * 0.01));
-            // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
+            pieChartIf();
         }
 
         setBudgetInfoToStorage();
     });
     // when button is clicked, pass userInput values as arguments through both above functions, adding input to the budgetItems array and pushing to DOM
     $("#submit").on("click", function () {
-        if (budgetInfo.incomeSubmitted === false) {
+        if (budgetInfo.incomeSubmitted === false && $("#userInputDollars").val() != "") {
             // convert user input from string to integer, using base 10 radix (ensures it converts to the decimal system we humans use)
             budgetInfo.spendingMoney = parseInt($("#userInputDollars").val(), 10);
             budgetInfo.incomeSubmitted = true;
             $("#categoryCheckbox").toggle();
             $("#userInputDollars").toggle();
-            // $("#spendingMoney").html("Total spending money remaining: $" + budgetInfo.spendingMoney);
             $("#prompt").html("<h2>What categories would you like to keep track of?</h2>");
-            //this does not call a function because all of it's functionality  happens in like 99 in the ".change" function that calls checkboxchecker
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false) {
+            //this does not call a function because all of it's functionality happens within the ".change" function that calls checkboxchecker
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === false && $('.checkbox').is(':checked')) {
             budgetInfo.categoriesSelected = true;
             $("#categoryCheckbox").toggle();
             $("#submit").toggle();
@@ -458,7 +459,7 @@ $(document).ready(function () {
             $("#percentageAllocator").toggle();
             $("#percentageAllocatorButton").toggle();
             $("#prompt").html("<h2>How much of your budget would you like allocated to each category (adding up to 100)?</h2>");
-        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true) {
+        } else if (budgetInfo.incomeSubmitted === true && budgetInfo.categoriesSelected === true && budgetInfo.trackingPercents === true && $("#userInputDollars").val() != "" && $('.radioB').is(':checked')) {
             // sets the variable "stageThreeCat" according to which radio button is selected and that is pushed to outputter() and addBudgetItem()
             if ($("#radioFood").prop("checked") == true) {
                 var stageThreeCat = "Food"
@@ -466,11 +467,7 @@ $(document).ready(function () {
                 var stageThreeCat = "Clothing"
             } else if ($("#radioEntertainment").prop("checked") == true) {
                 var stageThreeCat = "Entertainment"
-            }
-            // else if ($("#radioSavings").prop("checked") == true) {
-            //     var stageThreeCat = "Savings"
-            // }
-            else if ($("#radioTransportation").prop("checked") == true) {
+            } else if ($("#radioTransportation").prop("checked") == true) {
                 var stageThreeCat = "Transportation"
             } else if ($("#radioOther").prop("checked") == true) {
                 var stageThreeCat = "Other"
@@ -482,53 +479,24 @@ $(document).ready(function () {
         setBudgetInfoToStorage();
     });
 
-// END OF PAGELOAD FUNCTION
-  // SHOULD BE FIRST --
-   // this function reads the BudgetInfo object from local storage
+    // END OF PAGELOAD FUNCTION
+    // SHOULD BE FIRST --
+    // this function reads the BudgetInfo object from local storage
 
-   getBudgetInfoFromStorage();
+    getBudgetInfoFromStorage();
 
-/*   USED FOR TESTING - MAY BE NEEDED AGAIN
+    /*   USED FOR TESTING - MAY BE NEEDED AGAIN
 
-    budgetInfo.spendingMoney = 5000;
-    addBudgetItem("Food", 10);
-    addBudgetItem("Savings", 2000);
-    addBudgetItem("Other", 300);
-     */
+        budgetInfo.spendingMoney = 5000;
+        addBudgetItem("Food", 10);
+        addBudgetItem("Savings", 2000);
+        addBudgetItem("Other", 300);
+         */
 
 
-// this may need to be called here - or other places near
-// the end of various functions - for now there are 3 calls
-// interspersed above, testing to finalize
-// setBudgetInfoToStorage();
-
-// Animations
-
-$(function() {
-    var animationend = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd MSanimationEnd';
-
-    $("#submit").on('click',function() {
-      $("#prompt").addClass("animated fadeIn").one(animationend,function() {
-        $(this).removeClass("animated fadeIn");
-      });
-    });
-
-    $("#submit").on('click',function() {
-      $("#output").addClass("animated bounceInRight").one(animationend,function() {
-        $(this).removeClass("animated bounceInRight");
-      });
-    });
-
-    $("#percentageAllocatorButton").on('click',function() {
-      $("#radioButtons").addClass("animated bounceInRight").one(animationend,function() {
-        $(this).removeClass("animated bounceInRight");
-      });
-    });
-
-    $("#submit").on('click',function() {
-      $("#additionalInfo").addClass("animated bounceInLeft").one(animationend,function() {
-        $(this).removeClass("animated bounceInLeft");
-      });
-    });
+    // this may need to be called here - or other places near
+    // the end of various functions - for now there are 3 calls
+    // interspersed above, testing to finalize
+    // setBudgetInfoToStorage();
 
 });
